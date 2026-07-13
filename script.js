@@ -136,6 +136,7 @@ const searchInput = document.getElementById("searchInput");
 const typeFilter = document.getElementById("typeFilter");
 const categoryFilter = document.getElementById("categoryFilter");
 const exportBtn = document.getElementById("exportBtn");
+const exportCsvBtn = document.getElementById("exportCsvBtn");
 const importBtn = document.getElementById("importBtn");
 const importInput = document.getElementById("importInput");
 const budgetInput = document.getElementById("budgetInput");
@@ -619,6 +620,24 @@ const exportTransactions = () => {
   URL.revokeObjectURL(url);
 };
 
+const exportTransactionsCsv = () => {
+  const columns = ["date", "type", "category", "description", "amount", "recurring", "frequency"];
+  const escapeCsvCell = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
+  const rows = [
+    columns.join(","),
+    ...getSortedTransactions(state.transactions).map((transaction) =>
+      columns.map((column) => escapeCsvCell(transaction[column])).join(",")
+    ),
+  ];
+  const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "pocketwise-transactions.csv";
+  link.click();
+  URL.revokeObjectURL(url);
+};
+
 const importTransactions = async (file) => {
   const text = await file.text();
   const parsed = JSON.parse(text);
@@ -1054,6 +1073,7 @@ budgetInput.addEventListener("keydown", (event) => {
 });
 
 exportBtn.addEventListener("click", exportTransactions);
+exportCsvBtn?.addEventListener("click", exportTransactionsCsv);
 importBtn.addEventListener("click", () => importInput.click());
 importInput.addEventListener("change", async (event) => {
   const [file] = event.target.files || [];
