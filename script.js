@@ -316,8 +316,8 @@ const renderTransactions = () => {
             <span class="amount ${transaction.type === "income" ? "positive" : "negative"}">
               ${transaction.type === "income" ? "+" : "-"}${formatCurrency(transaction.amount)}
             </span>
-            <button class="action-btn" data-action="edit" data-id="${transaction.id}">✎</button>
-            <button class="action-btn delete" data-action="delete" data-id="${transaction.id}">🗑</button>
+            <button class="action-btn" data-action="edit" data-id="${transaction.id}" aria-label="Edit ${escapeHtml(transaction.description)}">Edit</button>
+            <button class="action-btn delete" data-action="delete" data-id="${transaction.id}" aria-label="Delete ${escapeHtml(transaction.description)}">Delete</button>
           </div>
         </article>
       `
