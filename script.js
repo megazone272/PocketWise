@@ -32,6 +32,13 @@ const analyticsSavingsValue = document.getElementById("analyticsSavingsValue");
 
 const STORAGE_KEY = "pocketwise-transactions";
 
+const escapeHtml = (value) => String(value ?? "")
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;")
+  .replaceAll("'", "&#039;");
+
 const loadTransactions = () => {
   const stored = localStorage.getItem(STORAGE_KEY);
   if (!stored) {
@@ -276,8 +283,8 @@ const renderTransactions = () => {
           <div class="transaction-main">
             <span class="type-badge ${transaction.type}">${transaction.type}</span>
             <div class="transaction-meta">
-              <strong>${transaction.description}</strong>
-              <p>${transaction.category} • ${transaction.date}${transaction.recurring ? " • Recurring" : ""}</p>
+              <strong>${escapeHtml(transaction.description)}</strong>
+              <p>${escapeHtml(transaction.category)} • ${escapeHtml(transaction.date)}${transaction.recurring ? " • Recurring" : ""}</p>
             </div>
           </div>
           <div class="transaction-actions">
@@ -616,11 +623,11 @@ const renderGoals = () => {
       return `
         <article class="stack-item">
           <div class="stack-header">
-            <strong>${goal.name}</strong>
+            <strong>${escapeHtml(goal.name)}</strong>
             <span>${progress}%</span>
           </div>
           <div class="goal-progress-track compact"><div class="goal-progress-bar" style="width:${progress}%"></div></div>
-          <p>${formatCurrency(goal.current)} / ${formatCurrency(goal.target)} • Due ${goal.deadline}</p>
+          <p>${formatCurrency(goal.current)} / ${formatCurrency(goal.target)} • Due ${escapeHtml(goal.deadline)}</p>
         </article>
       `;
     })
@@ -641,10 +648,10 @@ const renderBills = () => {
     .map((bill) => `
       <article class="stack-item">
         <div class="stack-header">
-          <strong>${bill.name}</strong>
+          <strong>${escapeHtml(bill.name)}</strong>
           <span>${formatCurrency(bill.amount)}</span>
         </div>
-        <p>Due ${bill.date}</p>
+        <p>Due ${escapeHtml(bill.date)}</p>
       </article>
     `)
     .join("");
@@ -658,11 +665,11 @@ const renderNotifications = () => {
   const items = [];
   if (goals.length) {
     const goal = goals[0];
-    items.push(`Goal reminder: ${goal.name} is ${Math.round((Number(goal.current) / Number(goal.target)) * 100)}% complete.`);
+    items.push(`Goal reminder: ${escapeHtml(goal.name)} is ${Math.round((Number(goal.current) / Number(goal.target)) * 100)}% complete.`);
   }
   if (bills.length) {
     const nextBill = [...bills].sort((left, right) => new Date(left.date) - new Date(right.date))[0];
-    items.push(`Upcoming bill: ${nextBill.name} is due on ${nextBill.date}.`);
+    items.push(`Upcoming bill: ${escapeHtml(nextBill.name)} is due on ${escapeHtml(nextBill.date)}.`);
   }
   if (!items.length) {
     items.push("You’re all caught up for now.");
@@ -714,7 +721,7 @@ const renderDashboardSummary = () => {
   goalTargetValue.textContent = activeGoal ? formatCurrency(activeGoal.target) : "$0.00";
 
   const recentActivity = [...state.transactions].sort((left, right) => new Date(right.date) - new Date(left.date)).slice(0, 6);
-  recentActivityList.innerHTML = recentActivity.map((item) => `<li class="activity-item"><span>${item.description}</span><strong>${formatCurrency(item.amount)}</strong></li>`).join("");
+  recentActivityList.innerHTML = recentActivity.map((item) => `<li class="activity-item"><span>${escapeHtml(item.description)}</span><strong>${formatCurrency(item.amount)}</strong></li>`).join("");
 };
 
 const renderCharts = () => {
