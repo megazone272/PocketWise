@@ -687,19 +687,46 @@ const renderNotifications = () => {
   }
 
   const items = [];
-  if (goals.length) {
-    const goal = goals[0];
-    items.push(`Goal reminder: ${escapeHtml(goal.name)} is ${Math.round((Number(goal.current) / Number(goal.target)) * 100)}% complete.`);
-  }
-  if (bills.length) {
-    const nextBill = [...bills].sort((left, right) => new Date(left.date) - new Date(right.date))[0];
-    items.push(`Upcoming bill: ${escapeHtml(nextBill.name)} is due on ${escapeHtml(nextBill.date)}.`);
-  }
-  if (!items.length) {
-    items.push("You’re all caught up for now.");
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const sevenDaysFromNow = new Date(today);
+  sevenDaysFromNow.setDate(today.getDate() + 7);
+  const budget = loadBudget();
+  const spent = getCurrentMonthExpenses().reduce((sum, transaction) => sum + (Number(transaction.amount) || 0), 0);
+  const budgetPercent = budget > 0 ? Math.round((spent / budget) * 100) : 0;
+
+  if (budgetPercent >= 100) {
+    items.push(`Budget alert: you are ${budgetPercent}% of your monthly budget.`);
+  } else if (budgetPercent >= 80) {
+    items.push(`Budget watch: ${budgetPercent}% of your monthly budget is already spent.`);
   }
 
-  notificationsList.innerHTML = items.map((item) => `<li class="notification-item">${item}</li>`).join("");
+  bills
+    .map((bill) => ({ ...bill, dueDate: new Date(`${bill.date}T12:00:00`) }))
+    .filter((bill) => !Number.isNaN(bill.dueDate.getTime()))
+    .sort((left, right) => left.dueDate - right.dueDate)
+    .forEach((bill) => {
+      const name = escapeHtml(bill.name);
+      const date = escapeHtml(bill.date);
+      if (bill.dueDate < today) {
+        items.push(`Overdue bill: ${name} was due on ${date}.`);
+      } else if (bill.dueDate <= sevenDaysFromNow) {
+        items.push(`Upcoming bill: ${name} is due on ${date}.`);
+      }
+    });
+
+  goals.forEach((goal) => {
+    const deadline = new Date(`${goal.deadline}T12:00:00`);
+    if (!Number.isNaN(deadline.getTime()) && deadline >= today && deadline <= sevenDaysFromNow) {
+      items.push(`Goal deadline: ${escapeHtml(goal.name)} is due on ${escapeHtml(goal.deadline)}.`);
+    }
+  });
+
+  if (!items.length) {
+    items.push("You’re all caught up. No budget, bill, or goal action is due this week.");
+  }
+
+  notificationsList.innerHTML = items.slice(0, 5).map((item) => `<li class="notification-item">${item}</li>`).join("");
 };
 
 const renderCalendar = () => {
