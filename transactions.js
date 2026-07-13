@@ -56,7 +56,7 @@ export const validateTransaction = (payload) => {
   }
 
   const amount = Number(payload.amount);
-  if (Number.isNaN(amount) || amount <= 0) {
+  if (!Number.isFinite(amount) || amount <= 0 || amount > 100000000) {
     return "Please enter a valid amount greater than 0.";
   }
 
@@ -64,7 +64,7 @@ export const validateTransaction = (payload) => {
 };
 
 export const getFilteredTransactions = (transactions, filters) => {
-  const search = filters.search.toLowerCase();
+  const search = String(filters.search || "").trim().toLowerCase();
   return transactions.filter((transaction) => {
     const matchesSearch =
       transaction.description.toLowerCase().includes(search) ||

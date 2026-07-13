@@ -1,4 +1,6 @@
 const Chart = window.Chart;
+let lineChart;
+let categoryChart;
 
 export const createCharts = (lineCanvas, categoryCanvas, transactions, goals, bills) => {
   if (!lineCanvas || !categoryCanvas || !Chart) {
@@ -29,7 +31,8 @@ export const createCharts = (lineCanvas, categoryCanvas, transactions, goals, bi
 
   const categoryEntries = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1]).slice(0, 6);
 
-  new Chart(lineCanvas, {
+  lineChart?.destroy();
+  lineChart = new Chart(lineCanvas, {
     type: 'line',
     data: {
       labels: monthlySummary.map((item) => item.monthLabel),
@@ -55,7 +58,8 @@ export const createCharts = (lineCanvas, categoryCanvas, transactions, goals, bi
     options: { responsive: true, maintainAspectRatio: false },
   });
 
-  new Chart(categoryCanvas, {
+  categoryChart?.destroy();
+  categoryChart = new Chart(categoryCanvas, {
     type: 'doughnut',
     data: {
       labels: categoryEntries.map(([category]) => category),
