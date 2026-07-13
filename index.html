@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4f46e5" />
+    <title>PocketWise | AI Finance Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.webmanifest" />
+  </head>
+  <body data-theme="dark" data-lang="en">
+    <div class="app-shell auth-shell" id="authView">
+      <div class="auth-card">
+        <div class="brand auth-brand">
+          <div class="brand-mark">PW</div>
+          <div>
+            <h2>PocketWise</h2>
+            <p>AI Finance</p>
+          </div>
+        </div>
+
+        <h3 id="authTitle">Sign In</h3>
+        <p class="auth-subtitle" id="authSubtitle">Welcome back</p>
+
+        <form id="authForm" class="auth-form">
+          <input id="authName" type="text" placeholder="Full Name" hidden />
+          <input id="authEmail" type="email" placeholder="Email" required />
+          <input id="authPassword" type="password" placeholder="Password" required />
+          <button type="submit" class="primary-btn auth-submit">Sign In</button>
+        </form>
+
+        <button id="authSwitchBtn" class="ghost-btn auth-switch">Need an account?</button>
+      </div>
+    </div>
+
+    <div class="app-shell app-main hidden" id="appView">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">PW</div>
+          <div>
+            <h2>PocketWise</h2>
+            <p>AI Finance</p>
+          </div>
+        </div>
+
+        <nav class="nav-links" aria-label="Main navigation">
+          <a class="active" href="#" data-section="dashboard"><span>◈</span> <span data-i18n="dashboard">Dashboard</span></a>
+          <a href="#" data-section="transactions"><span>◌</span> <span data-i18n="transactions">Transactions</span></a>
+          <a href="#" data-section="budgets"><span>◍</span> <span data-i18n="budgets">Budgets</span></a>
+          <a href="#" data-section="analytics"><span>◎</span> <span data-i18n="analytics">Analytics</span></a>
+          <a href="#" data-section="assistant"><span>✦</span> <span data-i18n="aiAssistant">AI Assistant</span></a>
+          <a href="#" data-section="settings"><span>⚙</span> <span data-i18n="settings">Settings</span></a>
+        </nav>
+
+        <div class="sidebar-card">
+          <h3 data-i18n="aiTitle">AI Insight</h3>
+          <p data-i18n="offlineReady">Offline-ready with premium insights.</p>
+          <button data-i18n="connectGemini">Connect Gemini</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <label class="search-wrap" aria-label="Search">
+            <span>⌕</span>
+            <input type="text" placeholder="Search insights, bills, reports" />
+          </label>
+
+          <div class="topbar-actions">
+            <button class="icon-button" id="themeToggle" aria-label="Toggle theme">☀</button>
+            <button class="icon-button" aria-label="Notifications">
+              🔔
+              <span class="dot"></span>
+            </button>
+            <div class="profile">
+              <div class="avatar">AN</div>
+              <div>
+                <strong>Alice Nguyen</strong>
+                <span>Premium</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="hero-panel" id="dashboardSection">
+          <div class="hero-copy">
+            <p class="eyebrow">Smart financial overview</p>
+            <h1>Your money, simplified.</h1>
+            <p>
+              Track every move, uncover patterns, and let AI guide your next best action.
+            </p>
+            <div class="hero-actions">
+              <button class="primary-btn" id="addExpenseBtn">+ Add Expense</button>
+              <button class="ghost-btn">See analytics</button>
+            </div>
+          </div>
+          <div class="hero-badge">
+            <span>Smart Save</span>
+            <strong>+$1,280</strong>
+            <p>Projected by next month</p>
+          </div>
+        </section>
+
+        <section class="stats-grid">
+          <article class="card stat-card balance-card">
+            <div class="card-head">
+              <p>Balance</p>
+              <span class="trend up">+8.2%</span>
+            </div>
+            <h3>$24,580</h3>
+            <p class="muted">Across all accounts</p>
+          </article>
+
+          <article class="card stat-card">
+            <div class="card-head">
+              <p>Income</p>
+              <span class="trend up">+4.6%</span>
+            </div>
+            <h3>$8,240</h3>
+            <p class="muted">Monthly incoming</p>
+          </article>
+
+          <article class="card stat-card">
+            <div class="card-head">
+              <p>Expenses</p>
+              <span class="trend down">-2.1%</span>
+            </div>
+            <h3>$3,640</h3>
+            <p class="muted">Tracked this month</p>
+          </article>
+
+          <article class="card stat-card">
+            <div class="card-head">
+              <p>Savings</p>
+              <span class="trend up">+12%</span>
+            </div>
+            <h3>$4,920</h3>
+            <p class="muted">Emergency fund</p>
+          </article>
+        </section>
+
+        <section class="card transactions-panel" id="transactionsSection">
+          <div class="panel-header">
+            <div>
+              <h3>Transactions</h3>
+              <p>Manage income, expenses, and categories</p>
+            </div>
+            <button class="primary-btn small-btn" id="openModalBtn">+ Add Transaction</button>
+          </div>
+
+          <div class="transaction-toolbar">
+            <label class="search-wrap compact-search" aria-label="Search transactions">
+              <span>⌕</span>
+              <input type="text" id="searchInput" placeholder="Search transactions" />
+            </label>
+
+            <select id="typeFilter" class="filter-select">
+              <option value="all">All Types</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+
+            <select id="categoryFilter" class="filter-select">
+              <option value="all">All Categories</option>
+              <option value="Salary">Salary</option>
+              <option value="Freelance">Freelance</option>
+              <option value="Investments">Investments</option>
+              <option value="Housing">Housing</option>
+              <option value="Dining">Dining</option>
+              <option value="Groceries">Groceries</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Travel">Travel</option>
+              <option value="Shopping">Shopping</option>
+            </select>
+
+            <select id="searchScopeSelect" class="filter-select">
+              <option value="transactions">Transactions</option>
+              <option value="all">All Content</option>
+            </select>
+
+            <select id="sortSelect" class="filter-select">
+              <option value="date-desc">Newest first</option>
+              <option value="date-asc">Oldest first</option>
+              <option value="amount-desc">Highest amount</option>
+              <option value="amount-asc">Lowest amount</option>
+            </select>
+
+            <select id="pageSizeSelect" class="filter-select">
+              <option value="5">5 per page</option>
+              <option value="10" selected>10 per page</option>
+              <option value="20">20 per page</option>
+            </select>
+          </div>
+
+          <div class="import-export-row">
+            <button class="ghost-btn small-btn" id="exportBtn">Export JSON</button>
+            <button class="ghost-btn small-btn" id="importBtn">Import JSON</button>
+            <input type="file" id="importInput" accept="application/json" hidden />
+          </div>
+
+          <div id="transactionsList" class="transactions-list"></div>
+
+          <div class="pagination-row">
+            <button class="ghost-btn small-btn" id="prevPageBtn" type="button">Previous</button>
+            <span id="pageInfoText">Page 1</span>
+            <button class="ghost-btn small-btn" id="nextPageBtn" type="button">Next</button>
+          </div>
+        </section>
+
+        <section class="card budget-panel" id="budgetsSection">
+          <div class="panel-header">
+            <div>
+              <h3>Budget Planner</h3>
+              <p>Track your monthly spending goals</p>
+            </div>
+            <div class="budget-input-wrap">
+              <label class="budget-inline">
+                <span>Monthly Budget</span>
+                <input type="number" id="budgetInput" min="0" step="100" value="5000" />
+              </label>
+              <button class="primary-btn small-btn" id="saveBudgetBtn">Save</button>
+            </div>
+          </div>
+
+          <div class="budget-summary-grid">
+            <div class="budget-card accent-card">
+              <p>Monthly Budget</p>
+              <h3 id="monthlyBudgetValue">$5,000.00</h3>
+            </div>
+            <div class="budget-card">
+              <p>Spent</p>
+              <h3 id="spentBudgetValue">$0.00</h3>
+            </div>
+            <div class="budget-card">
+              <p>Remaining</p>
+              <h3 id="remainingBudgetValue">$5,000.00</h3>
+            </div>
+          </div>
+
+          <div class="budget-progress-wrap">
+            <div class="budget-progress-track">
+              <div id="budgetProgressBar" class="budget-progress-bar"></div>
+            </div>
+            <div class="budget-progress-meta">
+              <span id="budgetPercentText">0%</span>
+              <span id="budgetStatusText">Ready to plan</span>
+            </div>
+          </div>
+
+          <div id="budgetWarning" class="budget-warning">You are within your monthly budget.</div>
+        </section>
+
+        <section class="card assistant-panel" id="assistantSection">
+          <div class="panel-header">
+            <div>
+              <h3>AI Financial Assistant</h3>
+              <p>Ask anything about savings, goals, and spending habits</p>
+            </div>
+            <span class="assistant-status">● Gemini-ready</span>
+          </div>
+
+          <div class="assistant-chat" id="assistantChat" aria-live="polite">
+            <div class="assistant-message assistant">
+              <div class="assistant-avatar">AI</div>
+              <div class="message-bubble">
+                <strong>PocketWise AI</strong>
+                <p>Hi! I can help you review your spending, suggest savings ideas, and plan your next move.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="assistant-suggestions" aria-label="Assistant suggestions">
+            <button class="suggestion-chip" data-text="Help me cut my monthly spending by 15%">Cut spending</button>
+            <button class="suggestion-chip" data-text="How can I improve my savings this month?">Boost savings</button>
+            <button class="suggestion-chip" data-text="Summarize my recent transactions">Summarize activity</button>
+          </div>
+
+          <form class="assistant-input-row" id="assistantForm">
+            <input type="text" id="assistantInput" placeholder="Ask the AI assistant..." autocomplete="off" />
+            <button class="primary-btn" type="submit">Send</button>
+          </form>
+        </section>
+
+        <section class="card analytics-panel" id="analyticsSection">
+          <div class="panel-header">
+            <div>
+              <h3 data-i18n="analyticsTitle">Analytics & Insights</h3>
+              <p>Spend patterns, category trends, and monthly outlook</p>
+            </div>
+          </div>
+          <div class="analytics-grid">
+            <div class="analytics-card">
+              <p data-i18n="expenses">Expenses</p>
+              <h3 id="analyticsExpenseValue">$0.00</h3>
+            </div>
+            <div class="analytics-card">
+              <p data-i18n="income">Income</p>
+              <h3 id="analyticsIncomeValue">$0.00</h3>
+            </div>
+            <div class="analytics-card">
+              <p data-i18n="savings">Savings</p>
+              <h3 id="analyticsSavingsValue">$0.00</h3>
+            </div>
+          </div>
+        </section>
+
+        <section class="card dashboard-summary-panel" id="dashboardSummarySection">
+          <div class="panel-header">
+            <div>
+              <h3>Monthly Summary</h3>
+              <p>Live monthly view with action-oriented insight</p>
+            </div>
+          </div>
+          <div class="dashboard-summary-grid">
+            <div class="summary-card accent-card">
+              <p>Net Flow</p>
+              <h3 id="summaryNetValue">$0.00</h3>
+              <span id="summaryTrendValue" class="trend up">Steady</span>
+            </div>
+            <div class="summary-card">
+              <p>Next Bill</p>
+              <h3 id="summaryNextBillValue">$0.00</h3>
+              <span id="summaryNextBillDate">—</span>
+            </div>
+            <div class="summary-card">
+              <p>Goal Progress</p>
+              <h3 id="summaryGoalValue">0%</h3>
+              <span id="summaryGoalLabel">No active goal</span>
+            </div>
+          </div>
+          <div class="dashboard-widgets">
+            <div class="card nested-card">
+              <div class="panel-header">
+                <div>
+                  <h3>Recent Activity</h3>
+                  <p>Last transactions and updates</p>
+                </div>
+              </div>
+              <ul id="recentActivityList" class="activity-list"></ul>
+            </div>
+            <div class="card nested-card">
+              <div class="panel-header">
+                <div>
+                  <h3>Savings Goal</h3>
+                  <p>Progress toward your target</p>
+                </div>
+              </div>
+              <div class="goal-progress-track">
+                <div id="goalProgressBar" class="goal-progress-bar"></div>
+              </div>
+              <div class="goal-progress-meta">
+                <strong id="savingsGoalTitle">Emergency fund</strong>
+                <span id="goalProgressText">0%</span>
+              </div>
+              <div class="goal-meta-row">
+                <span id="goalCurrentValue">$0.00</span>
+                <span id="goalTargetValue">$0.00</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-grid analytics-grid-section">
+          <div class="card panel">
+            <div class="panel-header">
+              <div>
+                <h3>Monthly Trend</h3>
+                <p>Income versus spending over time</p>
+              </div>
+            </div>
+            <canvas id="lineChart"></canvas>
+          </div>
+          <div class="card panel">
+            <div class="panel-header">
+              <div>
+                <h3>Category Breakdown</h3>
+                <p>Where your discretionary budget is going</p>
+              </div>
+            </div>
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </section>
+
+        <section class="content-grid goals-bills-section">
+          <div class="card panel">
+            <div class="panel-header">
+              <div>
+                <h3>Saving Goals</h3>
+                <p>Stay aligned with your future milestones</p>
+              </div>
+              <button class="ghost-btn small-btn" id="addGoalBtn" type="button">Add Goal</button>
+            </div>
+            <form id="goalForm" class="inline-form">
+              <input id="goalNameInput" type="text" placeholder="Goal name" required />
+              <input id="goalTargetInput" type="number" min="1" step="100" placeholder="Target" required />
+              <input id="goalCurrentInput" type="number" min="0" step="100" placeholder="Current" required />
+              <input id="goalDeadlineInput" type="date" required />
+              <button class="primary-btn small-btn" type="submit">Save</button>
+            </form>
+            <div id="goalsList" class="stack-list"></div>
+          </div>
+
+          <div class="card panel">
+            <div class="panel-header">
+              <div>
+                <h3>Bills & Reminders</h3>
+                <p>Upcoming payments and due dates</p>
+              </div>
+              <button class="ghost-btn small-btn" id="addBillBtn" type="button">Add Bill</button>
+            </div>
+            <form id="billForm" class="inline-form">
+              <input id="billNameInput" type="text" placeholder="Bill name" required />
+              <input id="billAmountInput" type="number" min="1" step="0.01" placeholder="Amount" required />
+              <input id="billDateInput" type="date" required />
+              <button class="primary-btn small-btn" type="submit">Save</button>
+            </form>
+            <div id="billsList" class="stack-list"></div>
+          </div>
+        </section>
+
+        <section class="content-grid notifications-calendar-section">
+          <div class="card panel">
+            <div class="panel-header">
+              <div>
+                <h3>Notifications Center</h3>
+                <p>Important reminders and nudges</p>
+              </div>
+            </div>
+            <ul id="notificationsList" class="stack-list"></ul>
+          </div>
+
+          <div class="card panel">
+            <div class="panel-header">
+              <div>
+                <h3>Calendar View</h3>
+                <p>Upcoming bills and transaction dates</p>
+              </div>
+            </div>
+            <div id="calendarGrid" class="calendar-grid"></div>
+          </div>
+        </section>
+
+        <section class="content-grid" id="notificationsSection">
+          <div class="card panel">
+            <div class="panel-header">
+              <div>
+                <h3>Recent Transactions</h3>
+                <p>Latest activity from your accounts</p>
+              </div>
+              <a href="#">View all</a>
+            </div>
+
+            <ul class="transactions">
+              <li>
+                <div>
+                  <strong>Cloud Subscription</strong>
+                  <p>Software • Today</p>
+                </div>
+                <span class="negative">-$42.00</span>
+              </li>
+              <li>
+                <div>
+                  <strong>Salary Deposit</strong>
+                  <p>Income • Yesterday</p>
+                </div>
+                <span class="positive">+$3,200</span>
+              </li>
+              <li>
+                <div>
+                  <strong>Groceries</strong>
+                  <p>Essentials • 2 days ago</p>
+                </div>
+                <span class="negative">-$128.50</span>
+              </li>
+              <li>
+                <div>
+                  <strong>Freelance Client</strong>
+                  <p>Income • 3 days ago</p>
+                </div>
+                <span class="positive">+$780</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card panel chart-panel">
+            <div class="panel-header">
+              <div>
+                <h3>Monthly Spending</h3>
+                <p>Pattern insights for the last 6 months</p>
+              </div>
+              <a href="#">Details</a>
+            </div>
+
+            <div class="chart-area">
+              <div class="chart-bars" aria-label="Monthly spending chart placeholder">
+                <div class="bar" style="--h: 45%"></div>
+                <div class="bar" style="--h: 65%"></div>
+                <div class="bar" style="--h: 55%"></div>
+                <div class="bar" style="--h: 78%"></div>
+                <div class="bar" style="--h: 60%"></div>
+                <div class="bar" style="--h: 85%"></div>
+              </div>
+              <div class="chart-labels">
+                <span>Jan</span>
+                <span>Feb</span>
+                <span>Mar</span>
+                <span>Apr</span>
+                <span>May</span>
+                <span>Jun</span>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="card settings-panel" id="settingsSection">
+          <div class="panel-header">
+            <div>
+              <h3 data-i18n="settingsTitle">Settings</h3>
+              <p>Customize your experience</p>
+            </div>
+          </div>
+          <div class="settings-grid">
+            <label class="settings-item">
+              <span data-i18n="theme">Theme</span>
+              <select id="themeSelect">
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+              </select>
+            </label>
+            <label class="settings-item">
+              <span data-i18n="language">Language</span>
+              <select id="languageSelect">
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+              </select>
+            </label>
+            <label class="settings-item toggle-item">
+              <span data-i18n="notificationsToggle">Notifications</span>
+              <input type="checkbox" id="notificationsToggle" checked />
+            </label>
+            <label class="settings-item">
+              <span data-i18n="geminiApiKey">Gemini API Key</span>
+              <input type="password" id="geminiKeyInput" placeholder="AIza..." />
+            </label>
+            <button class="primary-btn" id="connectGeminiBtn" data-i18n="connectGemini">Connect Gemini</button>
+            <button class="ghost-btn" id="clearDataBtn" data-i18n="clearData">Clear Data</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-overlay hidden" id="transactionModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">Transactions</p>
+            <h3 id="modalTitle">Add Transaction</h3>
+          </div>
+          <button class="icon-button close-btn" id="closeModalBtn" aria-label="Close modal">✕</button>
+        </div>
+
+        <form id="transactionForm" novalidate>
+          <input type="hidden" id="transactionId" />
+          <div class="form-grid">
+            <label>
+              Type
+              <select name="type" id="typeInput" required>
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+              </select>
+            </label>
+
+            <label>
+              Date
+              <input type="date" name="date" id="dateInput" required />
+            </label>
+
+            <label>
+              Category
+              <input list="categorySuggestions" name="category" id="categoryInput" placeholder="Select or type a category" required />
+              <datalist id="categorySuggestions">
+                <option value="Salary"></option>
+                <option value="Freelance"></option>
+                <option value="Investments"></option>
+                <option value="Housing"></option>
+                <option value="Dining"></option>
+                <option value="Groceries"></option>
+                <option value="Utilities"></option>
+                <option value="Travel"></option>
+                <option value="Shopping"></option>
+              </datalist>
+            </label>
+
+            <label>
+              Amount
+              <input type="number" name="amount" id="amountInput" min="0.01" step="0.01" placeholder="0.00" required />
+            </label>
+
+            <label>
+              Description
+              <textarea name="description" id="descriptionInput" placeholder="What was this for?" required></textarea>
+            </label>
+
+            <label class="checkbox-inline">
+              <input type="checkbox" id="recurringInput" />
+              <span>Recurring transaction</span>
+            </label>
+
+            <label>
+              Frequency
+              <select id="frequencyInput">
+                <option value="monthly">Monthly</option>
+                <option value="weekly">Weekly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </label>
+
+            <label>
+              Receipt
+              <input type="file" id="receiptInput" accept="image/*,.pdf" />
+            </label>
+          </div>
+
+          <p id="formError" class="form-error" aria-live="polite"></p>
+
+          <div class="modal-actions">
+            <button type="button" class="ghost-btn" id="cancelModalBtn">Cancel</button>
+            <button type="submit" class="primary-btn">Save Transaction</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
