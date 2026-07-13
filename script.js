@@ -29,6 +29,10 @@ const clearDataBtn = document.getElementById("clearDataBtn");
 const analyticsExpenseValue = document.getElementById("analyticsExpenseValue");
 const analyticsIncomeValue = document.getElementById("analyticsIncomeValue");
 const analyticsSavingsValue = document.getElementById("analyticsSavingsValue");
+const balanceValue = document.getElementById("balanceValue");
+const monthlyIncomeValue = document.getElementById("monthlyIncomeValue");
+const monthlyExpenseValue = document.getElementById("monthlyExpenseValue");
+const monthlySavingsValue = document.getElementById("monthlySavingsValue");
 
 const STORAGE_KEY = "pocketwise-transactions";
 
@@ -230,19 +234,39 @@ const animateCounter = (element, from, to, prefix = "", suffix = "") => {
   window.requestAnimationFrame(step);
 };
 
-const renderAnalytics = () => {
-  const expenses = state.transactions.filter((transaction) => transaction.type === "expense");
-  const income = state.transactions.filter((transaction) => transaction.type === "income");
-  const totalExpenses = expenses.reduce((sum, transaction) => sum + Number(transaction.amount), 0);
-  const totalIncome = income.reduce((sum, transaction) => sum + Number(transaction.amount), 0);
-  const savings = totalIncome - totalExpenses;
+const getMonthTotals = (referenceDate = new Date()) => state.transactions.reduce(
+  (totals, transaction) => {
+    const date = new Date(`${transaction.date}T12:00:00`);
+    if (date.getFullYear() !== referenceDate.getFullYear() || date.getMonth() !== referenceDate.getMonth()) {
+      return totals;
+    }
+    const amount = Number(transaction.amount) || 0;
+    if (transaction.type === "income") totals.income += amount;
+    if (transaction.type === "expense") totals.expenses += amount;
+    return totals;
+  },
+  { income: 0, expenses: 0 }
+);
 
-  animateCounter(analyticsExpenseValue, Number(analyticsExpenseValue.dataset.value || 0), totalExpenses, "$", "");
-  animateCounter(analyticsIncomeValue, Number(analyticsIncomeValue.dataset.value || 0), totalIncome, "$", "");
+const renderAnalytics = () => {
+  const totals = getMonthTotals();
+  const savings = totals.income - totals.expenses;
+  const lifetimeNet = state.transactions.reduce(
+    (sum, transaction) => sum + (transaction.type === "income" ? 1 : -1) * (Number(transaction.amount) || 0),
+    0
+  );
+
+  animateCounter(analyticsExpenseValue, Number(analyticsExpenseValue.dataset.value || 0), totals.expenses, "$", "");
+  animateCounter(analyticsIncomeValue, Number(analyticsIncomeValue.dataset.value || 0), totals.income, "$", "");
   animateCounter(analyticsSavingsValue, Number(analyticsSavingsValue.dataset.value || 0), savings, "$", "");
-  analyticsExpenseValue.dataset.value = String(totalExpenses);
-  analyticsIncomeValue.dataset.value = String(totalIncome);
+  analyticsExpenseValue.dataset.value = String(totals.expenses);
+  analyticsIncomeValue.dataset.value = String(totals.income);
   analyticsSavingsValue.dataset.value = String(savings);
+
+  if (balanceValue) balanceValue.textContent = formatCurrency(lifetimeNet);
+  if (monthlyIncomeValue) monthlyIncomeValue.textContent = formatCurrency(totals.income);
+  if (monthlyExpenseValue) monthlyExpenseValue.textContent = formatCurrency(totals.expenses);
+  if (monthlySavingsValue) monthlySavingsValue.textContent = formatCurrency(savings);
 };
 
 const getSortedTransactions = (transactions) => {
