@@ -1,25 +1,181 @@
-# PocketWise
+# 💰 PocketWise
 
-PocketWise is a premium, AI-assisted personal finance web app built with HTML, CSS, and vanilla JavaScript.
+A modern AI-powered personal finance management application built with HTML, CSS, JavaScript, Firebase, and Google Gemini.
 
-## Features
-- Authentication flow with local persistence
-- Dashboard with financial summary cards
-- Transactions management with CRUD, search, filters, export/import
-- Categories and budgeting
-- Analytics and chart-style visuals
-- AI assistant UI ready for Gemini API integration
-- Dark mode, Arabic/English UI, and PWA-ready offline support
+---
 
-## Run locally
-Open the project folder in a browser, or serve it with a simple static server:
+## ✨ Features
 
-```bash
-python -m http.server 8000
+- 🔐 Firebase Authentication
+  - Email & Password
+  - Google Sign-In
+  - Password Reset
+  - Persistent Login
+
+- 💳 Transaction Management
+  - Add Transactions
+  - Edit Transactions
+  - Delete Transactions
+  - Categories
+  - Validation
+
+- 📊 Financial Dashboard
+  - Monthly Analytics
+  - Expense Charts
+  - Income Tracking
+  - Budget Progress
+
+- 🎯 Savings Goals
+
+- 🧾 Bills Management
+
+- 🤖 AI Financial Assistant
+  - Spending Analysis
+  - Smart Recommendations
+  - Budget Suggestions
+  - Monthly Insights
+  - Powered by Google Gemini
+
+- ☁ Firebase Firestore
+
+- 🌙 Dark Mode
+
+- 📱 Fully Responsive Design
+
+---
+
+## 🛠 Tech Stack
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- Firebase Authentication
+- Firestore Database
+- Google Gemini API
+- Chart.js
+- Node.js
+- Express.js
+
+---
+
+## 📂 Project Structure
+
+```
+PocketWise
+│
+├── server.js
+├── firebase.js
+├── script.js
+├── transactions.js
+├── style.css
+├── chart.js
+├── translations.js
+├── sw.js
+├── manifest.webmanifest
+├── package.json
+├── firestore.rules
+└── README.md
 ```
 
-Then open http://localhost:8000.
+---
 
-## Notes
-- Data is stored locally in the browser via LocalStorage.
-- The AI assistant UI is prepared for future Gemini API integration.
+## 🚀 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/megazone272/PocketWise.git
+```
+
+Go to the project
+
+```bash
+cd PocketWise
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Create your environment file
+
+```bash
+cp .env.example .env
+```
+
+Fill in your Firebase and Gemini credentials.
+
+Start the server
+
+```bash
+npm start
+```
+
+Open
+
+```
+http://localhost:3000
+```
+
+---
+
+## 🔥 Firebase
+
+The project uses:
+
+- Firebase Authentication
+- Cloud Firestore
+- Security Rules
+
+---
+
+## 🤖 Gemini AI
+
+PocketWise includes an AI financial assistant powered by Google Gemini.
+
+Capabilities include:
+
+- Spending analysis
+- Smart budgeting
+- Expense summaries
+- Personalized financial advice
+
+---
+
+## 📷 Screenshots
+
+> Add screenshots here
+
+- Dashboard
+- Login
+- Transactions
+- AI Assistant
+
+---
+
+## 📌 Roadmap
+
+- [ ] OCR Receipt Scanner
+- [ ] Recurring Transactions
+- [ ] Multi Currency
+- [ ] Monthly Reports
+- [ ] Export PDF
+- [ ] Notifications
+- [ ] Offline Mode
+
+---
+
+## 👨‍💻 Author
+
+**Nour Ahmed**
+
+GitHub:
+https://github.com/megazone272
+
+---
+
+## ⭐ Support
+
+If you like this project, consider giving it a ⭐ on GitHub.
