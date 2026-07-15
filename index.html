@@ -26,7 +26,7 @@
           <input id="authName" type="text" placeholder="Full Name" hidden />
           <input id="authEmail" type="email" placeholder="Email" required />
           <input id="authPassword" type="password" placeholder="Password" required />
-          <button type="submit" class="primary-btn auth-submit">Sign In</button>
+          <button type="submit" class="primary-btn auth-submit">Sign In</button><button type="button" id="googleSignInBtn" class="ghost-btn">Continue with Google</button><button type="button" id="forgotPasswordBtn" class="ghost-btn">Forgot password?</button>
         </form>
 
         <button id="authSwitchBtn" class="ghost-btn auth-switch">Need an account?</button>
@@ -44,12 +44,12 @@
         </div>
 
         <nav class="nav-links" aria-label="Main navigation">
-          <a class="active" href="#" data-section="dashboard"><span>◈</span> <span data-i18n="dashboard">Dashboard</span></a>
-          <a href="#" data-section="transactions"><span>◌</span> <span data-i18n="transactions">Transactions</span></a>
-          <a href="#" data-section="budgets"><span>◍</span> <span data-i18n="budgets">Budgets</span></a>
-          <a href="#" data-section="analytics"><span>◎</span> <span data-i18n="analytics">Analytics</span></a>
-          <a href="#" data-section="assistant"><span>✦</span> <span data-i18n="aiAssistant">AI Assistant</span></a>
-          <a href="#" data-section="settings"><span>⚙</span> <span data-i18n="settings">Settings</span></a>
+          <a class="active" href="#" data-section="dashboard"><span>â—ˆ</span> <span data-i18n="dashboard">Dashboard</span></a>
+          <a href="#" data-section="transactions"><span>â—Œ</span> <span data-i18n="transactions">Transactions</span></a>
+          <a href="#" data-section="budgets"><span>â—</span> <span data-i18n="budgets">Budgets</span></a>
+          <a href="#" data-section="analytics"><span>â—Ž</span> <span data-i18n="analytics">Analytics</span></a>
+          <a href="#" data-section="assistant"><span>âœ¦</span> <span data-i18n="aiAssistant">AI Assistant</span></a>
+          <a href="#" data-section="settings"><span>âš™</span> <span data-i18n="settings">Settings</span></a>
         </nav>
 
         <div class="sidebar-card">
@@ -62,21 +62,21 @@
       <main class="main-content">
         <header class="topbar">
           <label class="search-wrap" aria-label="Search">
-            <span>⌕</span>
+            <span>âŒ•</span>
             <input type="text" placeholder="Search insights, bills, reports" />
           </label>
 
           <div class="topbar-actions">
-            <button class="icon-button" id="themeToggle" aria-label="Toggle theme">☀</button>
+            <button class="icon-button" id="themeToggle" aria-label="Toggle theme">â˜€</button>
             <button class="icon-button" aria-label="Notifications">
-              🔔
+              ðŸ””
               <span class="dot"></span>
             </button>
             <div class="profile">
               <div class="avatar">AN</div>
               <div>
-                <strong>Alice Nguyen</strong>
-                <span>Premium</span>
+                <strong id="profileName">Your account</strong>
+                <button id="logoutBtn" class="ghost-btn small-btn" type="button">Log out</button>
               </div>
             </div>
           </div>
@@ -96,7 +96,7 @@
           </div>
           <div class="hero-badge">
             <span>Smart Save</span>
-            <strong>+$1,280</strong>
+            <strong id="projectedSavingsValue">$0.00</strong>
             <p>Projected by next month</p>
           </div>
         </section>
@@ -105,7 +105,7 @@
           <article class="card stat-card balance-card">
             <div class="card-head">
               <p>Balance</p>
-              <span class="trend up">+8.2%</span>
+              <span class="trend up">This month</span>
             </div>
             <h3 id="balanceValue">$0.00</h3>
             <p class="muted">Across all accounts</p>
@@ -114,7 +114,7 @@
           <article class="card stat-card">
             <div class="card-head">
               <p>Income</p>
-              <span class="trend up">+4.6%</span>
+              <span class="trend up">This month</span>
             </div>
             <h3 id="monthlyIncomeValue">$0.00</h3>
             <p class="muted">Monthly incoming</p>
@@ -123,7 +123,7 @@
           <article class="card stat-card">
             <div class="card-head">
               <p>Expenses</p>
-              <span class="trend down">-2.1%</span>
+              <span class="trend down">This month</span>
             </div>
             <h3 id="monthlyExpenseValue">$0.00</h3>
             <p class="muted">Tracked this month</p>
@@ -132,7 +132,7 @@
           <article class="card stat-card">
             <div class="card-head">
               <p>Savings</p>
-              <span class="trend up">+12%</span>
+              <span class="trend up">This month</span>
             </div>
             <h3 id="monthlySavingsValue">$0.00</h3>
             <p class="muted">Emergency fund</p>
@@ -150,7 +150,7 @@
 
           <div class="transaction-toolbar">
             <label class="search-wrap compact-search" aria-label="Search transactions">
-              <span>⌕</span>
+              <span>âŒ•</span>
               <input type="text" id="searchInput" placeholder="Search transactions" />
             </label>
 
@@ -217,7 +217,7 @@
             <div class="budget-input-wrap">
               <label class="budget-inline">
                 <span>Monthly Budget</span>
-                <input type="number" id="budgetInput" min="0" step="100" value="5000" />
+                <input type="number" id="budgetInput" min="0" step="100"  />
               </label>
               <button class="primary-btn small-btn" id="saveBudgetBtn">Save</button>
             </div>
@@ -226,7 +226,7 @@
           <div class="budget-summary-grid">
             <div class="budget-card accent-card">
               <p>Monthly Budget</p>
-              <h3 id="monthlyBudgetValue">$5,000.00</h3>
+              <h3 id="monthlyBudgetValue">$0.00</h3>
             </div>
             <div class="budget-card">
               <p>Spent</p>
@@ -234,7 +234,7 @@
             </div>
             <div class="budget-card">
               <p>Remaining</p>
-              <h3 id="remainingBudgetValue">$5,000.00</h3>
+              <h3 id="remainingBudgetValue">$0.00</h3>
             </div>
           </div>
 
@@ -257,7 +257,7 @@
               <h3>AI Financial Assistant</h3>
               <p>Ask anything about savings, goals, and spending habits</p>
             </div>
-            <span class="assistant-status">● Gemini-ready</span>
+            <span class="assistant-status">â— Gemini-ready</span>
           </div>
 
           <div class="assistant-chat" id="assistantChat" aria-live="polite">
@@ -321,7 +321,7 @@
             <div class="summary-card">
               <p>Next Bill</p>
               <h3 id="summaryNextBillValue">$0.00</h3>
-              <span id="summaryNextBillDate">—</span>
+              <span id="summaryNextBillDate">â€”</span>
             </div>
             <div class="summary-card">
               <p>Goal Progress</p>
@@ -441,77 +441,6 @@
           </div>
         </section>
 
-        <section class="content-grid" id="notificationsSection">
-          <div class="card panel">
-            <div class="panel-header">
-              <div>
-                <h3>Recent Transactions</h3>
-                <p>Latest activity from your accounts</p>
-              </div>
-              <a href="#">View all</a>
-            </div>
-
-            <ul class="transactions">
-              <li>
-                <div>
-                  <strong>Cloud Subscription</strong>
-                  <p>Software • Today</p>
-                </div>
-                <span class="negative">-$42.00</span>
-              </li>
-              <li>
-                <div>
-                  <strong>Salary Deposit</strong>
-                  <p>Income • Yesterday</p>
-                </div>
-                <span class="positive">+$3,200</span>
-              </li>
-              <li>
-                <div>
-                  <strong>Groceries</strong>
-                  <p>Essentials • 2 days ago</p>
-                </div>
-                <span class="negative">-$128.50</span>
-              </li>
-              <li>
-                <div>
-                  <strong>Freelance Client</strong>
-                  <p>Income • 3 days ago</p>
-                </div>
-                <span class="positive">+$780</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="card panel chart-panel">
-            <div class="panel-header">
-              <div>
-                <h3>Monthly Spending</h3>
-                <p>Pattern insights for the last 6 months</p>
-              </div>
-              <a href="#">Details</a>
-            </div>
-
-            <div class="chart-area">
-              <div class="chart-bars" aria-label="Monthly spending chart placeholder">
-                <div class="bar" style="--h: 45%"></div>
-                <div class="bar" style="--h: 65%"></div>
-                <div class="bar" style="--h: 55%"></div>
-                <div class="bar" style="--h: 78%"></div>
-                <div class="bar" style="--h: 60%"></div>
-                <div class="bar" style="--h: 85%"></div>
-              </div>
-              <div class="chart-labels">
-                <span>Jan</span>
-                <span>Feb</span>
-                <span>Mar</span>
-                <span>Apr</span>
-                <span>May</span>
-                <span>Jun</span>
-              </div>
-            </div>
-          </div>
-        </section>
         <section class="card settings-panel" id="settingsSection">
           <div class="panel-header">
             <div>
@@ -531,18 +460,13 @@
               <span data-i18n="language">Language</span>
               <select id="languageSelect">
                 <option value="en">English</option>
-                <option value="ar">العربية</option>
+                <option value="ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</option>
               </select>
             </label>
             <label class="settings-item toggle-item">
               <span data-i18n="notificationsToggle">Notifications</span>
               <input type="checkbox" id="notificationsToggle" checked />
             </label>
-            <label class="settings-item">
-              <span data-i18n="geminiApiKey">Gemini API Key</span>
-              <input type="password" id="geminiKeyInput" placeholder="AIza..." />
-            </label>
-            <button class="primary-btn" id="connectGeminiBtn" data-i18n="connectGemini">Connect Gemini</button>
             <button class="ghost-btn" id="clearDataBtn" data-i18n="clearData">Clear Data</button>
           </div>
         </section>
@@ -556,7 +480,7 @@
             <p class="eyebrow">Transactions</p>
             <h3 id="modalTitle">Add Transaction</h3>
           </div>
-          <button class="icon-button close-btn" id="closeModalBtn" aria-label="Close modal">✕</button>
+          <button class="icon-button close-btn" id="closeModalBtn" aria-label="Close modal">âœ•</button>
         </div>
 
         <form id="transactionForm" novalidate>
