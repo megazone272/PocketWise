@@ -998,6 +998,7 @@ button {
   display: grid;
   place-items: center;
   padding: 20px;
+  overflow-y: auto;
   z-index: 1000;
 }
 
@@ -1007,6 +1008,8 @@ button {
 
 .modal-card {
   width: min(100%, 560px);
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
   border-radius: 24px;
   padding: 20px;
   background: var(--surface);
@@ -1242,4 +1245,3 @@ button {
     grid-template-columns: 1fr;
   }
 }
-
