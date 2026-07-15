@@ -19,7 +19,10 @@ export const startFirebase = async () => {
   services = { auth, db: getFirestore(app) };
   return services;
 };
-export const firebase = () => services;
+export const firebase = () => {
+  if (!services) throw new Error("Firebase is still initializing. Please try again in a moment.");
+  return services;
+};
 export {
   collection, doc, addDoc, setDoc, updateDoc, deleteDoc, query, where, onSnapshot, serverTimestamp,
   onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider,
