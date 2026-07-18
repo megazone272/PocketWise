@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pocketwise-cache-v1';
+const CACHE_NAME = 'pocketwise-cache-v2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -22,7 +22,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') {
+  if (event.request.method !== 'GET' || new URL(event.request.url).origin !== self.location.origin || new URL(event.request.url).pathname.startsWith('/api/')) {
     return;
   }
 

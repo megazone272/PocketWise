@@ -24,7 +24,8 @@ export const formatCurrency = (value) =>
 
 export const validateTransaction = (payload, existingTransactions = [], editingId = null) => {
   if (!["income", "expense"].includes(payload.type) || !payload.date || !payload.category || !payload.description) return "Please complete all fields.";
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(payload.date) || Number.isNaN(new Date(`${payload.date}T12:00:00`).getTime())) return "Please enter a valid date.";
+  const parsedDate = new Date(`${payload.date}T12:00:00`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(payload.date) || Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== payload.date) return "Please enter a valid date.";
   if (!TRANSACTION_CATEGORIES.includes(payload.category)) return "Please choose a valid category.";
   if (payload.description.trim().length < 2 || payload.description.trim().length > 140) return "Description must be between 2 and 140 characters.";
   const amount = Number(payload.amount);
@@ -35,9 +36,8 @@ export const validateTransaction = (payload, existingTransactions = [], editingI
 export const getFilteredTransactions = (transactions, filters) => {
   const search = String(filters.search || "").trim().toLowerCase();
   return transactions.filter((transaction) => {
-    const matchesSearch =
-      transaction.description.toLowerCase().includes(search) ||
-      transaction.category.toLowerCase().includes(search);
+    const matchesSearch = [transaction.description, transaction.category, transaction.date]
+      .some((value) => String(value || "").toLowerCase().includes(search));
     const matchesType = filters.type === "all" || transaction.type === filters.type;
     const matchesCategory = filters.category === "all" || transaction.category === filters.category;
 
