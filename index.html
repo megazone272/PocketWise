@@ -70,7 +70,7 @@
 
           <div class="topbar-actions">
             <button class="icon-button" id="themeToggle" aria-label="Toggle theme">☀</button>
-            <button class="icon-button" aria-label="Notifications">
+            <button class="icon-button" id="notificationsBtn" type="button" aria-label="View notifications">
               🔔
               <span class="dot"></span>
             </button>
@@ -457,13 +457,6 @@
                 <option value="light">Light</option>
               </select>
             </label>
-            <label class="settings-item">
-              <span data-i18n="language">Language</span>
-              <select id="languageSelect">
-                <option value="en">English</option>
-                <option value="ar">العربية</option>
-              </select>
-            </label>
             <label class="settings-item toggle-item">
               <span data-i18n="notificationsToggle">Notifications</span>
               <input type="checkbox" id="notificationsToggle" checked />
@@ -538,11 +531,6 @@
                 <option value="weekly">Weekly</option>
                 <option value="yearly">Yearly</option>
               </select>
-            </label>
-
-            <label>
-              Receipt
-              <input type="file" id="receiptInput" accept="image/*,.pdf" />
             </label>
           </div>
 
