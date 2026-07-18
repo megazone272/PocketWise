@@ -23,10 +23,12 @@
         <p class="auth-subtitle" id="authSubtitle">Welcome back</p>
 
         <form id="authForm" class="auth-form">
-          <input id="authName" type="text" placeholder="Full Name" hidden />
-          <input id="authEmail" type="email" placeholder="Email" required />
-          <input id="authPassword" type="password" placeholder="Password" required />
-          <button type="submit" class="primary-btn auth-submit">Sign In</button><button type="button" id="googleSignInBtn" class="ghost-btn">Continue with Google</button><button type="button" id="forgotPasswordBtn" class="ghost-btn">Forgot password?</button>
+          <input id="authName" type="text" placeholder="Full Name" autocomplete="name" hidden />
+          <input id="authEmail" type="email" placeholder="Email" autocomplete="email" aria-label="Email" required />
+          <input id="authPassword" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password" required />
+          <button type="submit" class="primary-btn auth-submit">Sign In</button>
+          <button type="button" id="googleSignInBtn" class="ghost-btn">Continue with Google</button>
+          <button type="button" id="forgotPasswordBtn" class="ghost-btn">Forgot password?</button>
         </form>
 
         <button id="authSwitchBtn" class="ghost-btn auth-switch">Need an account?</button>
@@ -44,32 +46,32 @@
         </div>
 
         <nav class="nav-links" aria-label="Main navigation">
-          <a class="active" href="#" data-section="dashboard"><span>â—ˆ</span> <span data-i18n="dashboard">Dashboard</span></a>
-          <a href="#" data-section="transactions"><span>â—Œ</span> <span data-i18n="transactions">Transactions</span></a>
-          <a href="#" data-section="budgets"><span>â—</span> <span data-i18n="budgets">Budgets</span></a>
-          <a href="#" data-section="analytics"><span>â—Ž</span> <span data-i18n="analytics">Analytics</span></a>
-          <a href="#" data-section="assistant"><span>âœ¦</span> <span data-i18n="aiAssistant">AI Assistant</span></a>
-          <a href="#" data-section="settings"><span>âš™</span> <span data-i18n="settings">Settings</span></a>
+          <a class="active" href="#" data-section="dashboard"><span>◈</span> <span data-i18n="dashboard">Dashboard</span></a>
+          <a href="#" data-section="transactions"><span>◌</span> <span data-i18n="transactions">Transactions</span></a>
+          <a href="#" data-section="budgets"><span>◍</span> <span data-i18n="budgets">Budgets</span></a>
+          <a href="#" data-section="analytics"><span>◎</span> <span data-i18n="analytics">Analytics</span></a>
+          <a href="#" data-section="assistant"><span>✦</span> <span data-i18n="aiAssistant">AI Assistant</span></a>
+          <a href="#" data-section="settings"><span>⚙</span> <span data-i18n="settings">Settings</span></a>
         </nav>
 
         <div class="sidebar-card">
           <h3 data-i18n="aiTitle">AI Insight</h3>
           <p data-i18n="offlineReady">Offline-ready with premium insights.</p>
-          <button data-i18n="connectGemini">Connect Gemini</button>
+          <button id="openAssistantBtn" type="button">Open assistant</button>
         </div>
       </aside>
 
       <main class="main-content">
         <header class="topbar">
           <label class="search-wrap" aria-label="Search">
-            <span>âŒ•</span>
+            <span>⌕</span>
             <input type="text" placeholder="Search insights, bills, reports" />
           </label>
 
           <div class="topbar-actions">
-            <button class="icon-button" id="themeToggle" aria-label="Toggle theme">â˜€</button>
+            <button class="icon-button" id="themeToggle" aria-label="Toggle theme">☀</button>
             <button class="icon-button" aria-label="Notifications">
-              ðŸ””
+              🔔
               <span class="dot"></span>
             </button>
             <div class="profile">
@@ -91,12 +93,12 @@
             </p>
             <div class="hero-actions">
               <button class="primary-btn" id="addExpenseBtn">+ Add Expense</button>
-              <button class="ghost-btn">See analytics</button>
+              <button class="ghost-btn" id="viewAnalyticsBtn" type="button">See analytics</button>
             </div>
           </div>
           <div class="hero-badge">
             <span>Smart Save</span>
-            <strong id="projectedSavingsValue">$0.00</strong>
+            <strong>+$1,280</strong>
             <p>Projected by next month</p>
           </div>
         </section>
@@ -105,7 +107,7 @@
           <article class="card stat-card balance-card">
             <div class="card-head">
               <p>Balance</p>
-              <span class="trend up">This month</span>
+              <span class="trend up">+8.2%</span>
             </div>
             <h3 id="balanceValue">$0.00</h3>
             <p class="muted">Across all accounts</p>
@@ -114,7 +116,7 @@
           <article class="card stat-card">
             <div class="card-head">
               <p>Income</p>
-              <span class="trend up">This month</span>
+              <span class="trend up">+4.6%</span>
             </div>
             <h3 id="monthlyIncomeValue">$0.00</h3>
             <p class="muted">Monthly incoming</p>
@@ -123,7 +125,7 @@
           <article class="card stat-card">
             <div class="card-head">
               <p>Expenses</p>
-              <span class="trend down">This month</span>
+              <span class="trend down">-2.1%</span>
             </div>
             <h3 id="monthlyExpenseValue">$0.00</h3>
             <p class="muted">Tracked this month</p>
@@ -132,7 +134,7 @@
           <article class="card stat-card">
             <div class="card-head">
               <p>Savings</p>
-              <span class="trend up">This month</span>
+              <span class="trend up">+12%</span>
             </div>
             <h3 id="monthlySavingsValue">$0.00</h3>
             <p class="muted">Emergency fund</p>
@@ -150,7 +152,7 @@
 
           <div class="transaction-toolbar">
             <label class="search-wrap compact-search" aria-label="Search transactions">
-              <span>âŒ•</span>
+              <span>⌕</span>
               <input type="text" id="searchInput" placeholder="Search transactions" />
             </label>
 
@@ -217,7 +219,7 @@
             <div class="budget-input-wrap">
               <label class="budget-inline">
                 <span>Monthly Budget</span>
-                <input type="number" id="budgetInput" min="0" step="100"  />
+                <input type="number" id="budgetInput" min="0" step="100" />
               </label>
               <button class="primary-btn small-btn" id="saveBudgetBtn">Save</button>
             </div>
@@ -257,7 +259,7 @@
               <h3>AI Financial Assistant</h3>
               <p>Ask anything about savings, goals, and spending habits</p>
             </div>
-            <span class="assistant-status">â— Gemini-ready</span>
+            <span class="assistant-status">● Gemini-ready</span>
           </div>
 
           <div class="assistant-chat" id="assistantChat" aria-live="polite">
@@ -277,7 +279,7 @@
           </div>
 
           <form class="assistant-input-row" id="assistantForm">
-            <input type="text" id="assistantInput" placeholder="Ask the AI assistant..." autocomplete="off" />
+            <input type="text" id="assistantInput" placeholder="Ask the AI assistant..." aria-label="Ask the AI assistant" autocomplete="off" />
             <button class="primary-btn" type="submit">Send</button>
           </form>
         </section>
@@ -321,7 +323,7 @@
             <div class="summary-card">
               <p>Next Bill</p>
               <h3 id="summaryNextBillValue">$0.00</h3>
-              <span id="summaryNextBillDate">â€”</span>
+              <span id="summaryNextBillDate">—</span>
             </div>
             <div class="summary-card">
               <p>Goal Progress</p>
@@ -440,8 +442,7 @@
             <div id="calendarGrid" class="calendar-grid"></div>
           </div>
         </section>
-
-        <section class="card settings-panel" id="settingsSection">
+<section class="card settings-panel" id="settingsSection">
           <div class="panel-header">
             <div>
               <h3 data-i18n="settingsTitle">Settings</h3>
@@ -460,7 +461,7 @@
               <span data-i18n="language">Language</span>
               <select id="languageSelect">
                 <option value="en">English</option>
-                <option value="ar">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</option>
+                <option value="ar">العربية</option>
               </select>
             </label>
             <label class="settings-item toggle-item">
@@ -480,7 +481,7 @@
             <p class="eyebrow">Transactions</p>
             <h3 id="modalTitle">Add Transaction</h3>
           </div>
-          <button class="icon-button close-btn" id="closeModalBtn" aria-label="Close modal">âœ•</button>
+          <button class="icon-button close-btn" id="closeModalBtn" aria-label="Close modal">✕</button>
         </div>
 
         <form id="transactionForm" novalidate>
