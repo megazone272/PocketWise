@@ -26,7 +26,7 @@
           <input id="authName" type="text" placeholder="Full Name" autocomplete="name" hidden />
           <input id="authEmail" type="email" placeholder="Email" autocomplete="email" aria-label="Email" required />
           <input id="authPassword" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password" required />
-          <button type="submit" class="primary-btn auth-submit">Sign In</button>
+          <button type="button" id="signInBtn" class="primary-btn auth-submit">Sign In</button>
           <button type="button" id="googleSignInBtn" class="ghost-btn">Continue with Google</button>
           <button type="button" id="forgotPasswordBtn" class="ghost-btn">Forgot password?</button>
         </form>
@@ -393,10 +393,11 @@
               </div>
               <button class="ghost-btn small-btn" id="addGoalBtn" type="button">Add Goal</button>
             </div>
-            <form id="goalForm" class="inline-form">
+            <!-- ✅ أضيف novalidate و step="any" -->
+            <form id="goalForm" class="inline-form" novalidate>
               <input id="goalNameInput" type="text" placeholder="Goal name" required />
-              <input id="goalTargetInput" type="number" min="1" step="100" placeholder="Target" required />
-              <input id="goalCurrentInput" type="number" min="0" step="100" placeholder="Current" required />
+              <input id="goalTargetInput" type="number" min="1" step="any" placeholder="Target" required />
+              <input id="goalCurrentInput" type="number" min="0" step="any" placeholder="Current" required />
               <input id="goalDeadlineInput" type="date" required />
               <button class="primary-btn small-btn" type="submit">Save</button>
             </form>
@@ -411,9 +412,10 @@
               </div>
               <button class="ghost-btn small-btn" id="addBillBtn" type="button">Add Bill</button>
             </div>
-            <form id="billForm" class="inline-form">
+            <!-- ✅ أضيف novalidate و step="any" -->
+            <form id="billForm" class="inline-form" novalidate>
               <input id="billNameInput" type="text" placeholder="Bill name" required />
-              <input id="billAmountInput" type="number" min="1" step="0.01" placeholder="Amount" required />
+              <input id="billAmountInput" type="number" min="0.01" step="any" placeholder="Amount" required />
               <input id="billDateInput" type="date" required />
               <button class="primary-btn small-btn" type="submit">Save</button>
             </form>
@@ -442,7 +444,7 @@
             <div id="calendarGrid" class="calendar-grid"></div>
           </div>
         </section>
-<section class="card settings-panel" id="settingsSection">
+        <section class="card settings-panel" id="settingsSection">
           <div class="panel-header">
             <div>
               <h3 data-i18n="settingsTitle">Settings</h3>
@@ -495,23 +497,28 @@
 
             <label>
               Category
-              <input list="categorySuggestions" name="category" id="categoryInput" placeholder="Select or type a category" required />
-              <datalist id="categorySuggestions">
-                <option value="Salary"></option>
-                <option value="Freelance"></option>
-                <option value="Investments"></option>
-                <option value="Housing"></option>
-                <option value="Dining"></option>
-                <option value="Groceries"></option>
-                <option value="Utilities"></option>
-                <option value="Travel"></option>
-                <option value="Shopping"></option>
-              </datalist>
+              <select name="category" id="categoryInput" required>
+                <option value="">Select Category</option>
+                <option value="Salary">Salary</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Investments">Investments</option>
+                <option value="Housing">Housing</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Dining">Dining</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Transport">Transport</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Insurance">Insurance</option>
+                <option value="Travel">Travel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+              </select>
             </label>
 
             <label>
               Amount
-              <input type="number" name="amount" id="amountInput" min="0.01" step="0.01" placeholder="0.00" required />
+              <input type="number" name="amount" id="amountInput" min="0" step="any" placeholder="0.00" required />
             </label>
 
             <label>
@@ -538,7 +545,7 @@
 
           <div class="modal-actions">
             <button type="button" class="ghost-btn" id="cancelModalBtn">Cancel</button>
-            <button type="submit" class="primary-btn">Save Transaction</button>
+            <button type="button" class="primary-btn">Save Transaction</button>
           </div>
         </form>
       </div>

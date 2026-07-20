@@ -67,13 +67,16 @@ PocketWise
 ├── firebase.js
 ├── script.js
 ├── transactions.js
+├── translations.js
 ├── style.css
 ├── chart.js
-├── translations.js
 ├── sw.js
 ├── manifest.webmanifest
 ├── package.json
 ├── firestore.rules
+├── test/
+│   ├── transactions.test.js
+│   └── translations.test.js
 └── README.md
 ```
 
@@ -117,6 +120,16 @@ Open
 
 ```
 http://localhost:3000
+```
+
+---
+
+## ✅ Tests
+
+Run the Node built-in test runner:
+
+```bash
+npm test
 ```
 
 ---
