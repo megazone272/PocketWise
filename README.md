@@ -7,9 +7,6 @@ The app has been made as a Progressive Web App so that besides being on the desk
 Features
 
 
-
-
-
 Firebase Authentication for User Login
 
 
