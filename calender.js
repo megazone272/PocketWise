@@ -1,4 +1,3 @@
-// calendar.js
 export function renderCalendar(bills, transactions) {
   const calendarGrid = document.getElementById('calendarGrid');
   if (!calendarGrid) return;

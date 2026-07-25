@@ -1,4 +1,3 @@
-// server.js - مع Groq API ووكيل Firestore
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { dirname, extname, join, normalize } from "node:path";
@@ -24,9 +23,6 @@ dotenv.config();
 const appRoot = dirname(fileURLToPath(import.meta.url));
 const getEnv = (key) => process.env[key] || "";
 
-// ============================================================
-// إعدادات Firebase
-// ============================================================
 const firebaseConfig = {
   apiKey: getEnv("FIREBASE_API_KEY"),
   authDomain: getEnv("FIREBASE_AUTH_DOMAIN"),
@@ -39,9 +35,6 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 
-// ============================================================
-// Groq API
-// ============================================================
 const GROQ_API_KEY = getEnv("GROQ_API_KEY");
 if (!GROQ_API_KEY) {
   console.warn("⚠️ GROQ_API_KEY غير موجود في ملف .env");
@@ -49,9 +42,7 @@ if (!GROQ_API_KEY) {
   console.log("✅ GROQ_API_KEY موجود");
 }
 
-// ============================================================
-// دوال مساعدة
-// ============================================================
+
 const json = (response, status, body) =>
   response
     .writeHead(status, {
@@ -74,9 +65,6 @@ const readBody = async (request) => {
   }
 };
 
-// ============================================================
-// التحقق من توكن Firebase
-// ============================================================
 const verify = async (token) => {
   if (!token || !firebaseConfig.apiKey) return null;
   try {
@@ -95,9 +83,6 @@ const verify = async (token) => {
   }
 };
 
-// ============================================================
-// Rate Limiting
-// ============================================================
 const assistantHits = new Map();
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 15;
@@ -109,14 +94,10 @@ const isRateLimited = (key) => {
   return hits.length > RATE_LIMIT_MAX;
 };
 
-// ============================================================
-// الخادم
-// ============================================================
 const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url, `http://${request.headers.host}`);
 
-    // ---- API: /api/config ----
     if (request.method === "GET" && url.pathname === "/api/config") {
       return json(response, 200, { firebase: firebaseConfig });
     }
@@ -176,7 +157,6 @@ const server = createServer(async (request, response) => {
       }
     }
 
-    // ---- API: /api/assistant (Groq) ----
     if (request.method === "POST" && url.pathname === "/api/assistant") {
       console.log("🟢 [Assistant] تم استلام طلب جديد");
       
@@ -291,9 +271,6 @@ const server = createServer(async (request, response) => {
   }
 });
 
-// ============================================================
-// تشغيل الخادم
-// ============================================================
 const startPort = Number(process.env.PORT) || 3004;
 let currentPort = startPort;
 const maxAttempts = 20;

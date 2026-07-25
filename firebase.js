@@ -1,4 +1,3 @@
-// firebase.js – استيراد مباشر من CDN (بدون importmap)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {
   getAuth,
@@ -36,10 +35,6 @@ export const firebase = () => {
   if (!services) throw new Error("Firebase لم يتم تهيئته بعد");
   return services;
 };
-
-// ============================================================
-// دوال Firestore عبر الوكيل (Proxy) – مع تصحيح
-// ============================================================
 
 async function proxyRequest(action, collection, data = null, docId = null) {
   console.log(`🔵 [proxyRequest] بدء ${action} على ${collection}`, { data, docId });

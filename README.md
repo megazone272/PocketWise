@@ -182,7 +182,7 @@ Capabilities include:
 
 ## 👨‍💻 Author
 
-**Nour Ahmed**
+Nour Ahmed
 
 GitHub:
 https://github.com/megazone272

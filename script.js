@@ -4,7 +4,7 @@ import { translate, RTL_LANGUAGES, SUPPORTED_LANGUAGES } from "./translations.js
 import {
   startFirebase, firebase, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, query, where, onSnapshot,
   serverTimestamp, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider,
-  signInWithPopup, sendPasswordResetEmail, signOut, updateProfile,
+  signInWithPopup, sendPasswordResetEmail, signOut, updateProfile, getDocs,
 } from "./firebase.js";
 
 const $ = (id) => document.getElementById(id);
@@ -52,16 +52,16 @@ function populateCategoryOptions() {
     .map(category => `<option value="${esc(category)}">${esc(category)}</option>`)
     .join("");
 
-  const categorySelect = $("categoryInput");
-  if (categorySelect) {
-    categorySelect.innerHTML =
-      '<option value="">Select Category</option>' + optionsHtml;
-  }
-
   const filter = $("categoryFilter");
   if (filter) {
-    filter.innerHTML =
-      '<option value="all">All Categories</option>' + optionsHtml;
+    filter.innerHTML = '<option value="all">All Categories</option>' + optionsHtml;
+  }
+
+  const customList = document.getElementById('categoryOptions');
+  if (customList) {
+    customList.innerHTML = TRANSACTION_CATEGORIES
+      .map(cat => `<li data-value="${esc(cat)}">${esc(cat)}</li>`)
+      .join('');
   }
 }
 async function saveSettings(patch) {
@@ -71,7 +71,17 @@ async function saveSettings(patch) {
   if (!user) return;
   await setDoc(doc(null, "settings", user.uid), own(settings), { merge: true });
 }
-function renderAll() { renderTransactions(); renderBudget(); renderAnalytics(); renderGoals(); renderBills(); renderNotifications(); renderSummary(); createCharts($("lineChart"), $("categoryChart"), state.transactions, goals, bills); }
+function renderAll() {
+  renderTransactions();
+  renderBudget();
+  renderAnalytics();
+  renderGoals();
+  renderBills();
+  renderNotifications();
+  renderSummary();
+  createCharts($("lineChart"), $("categoryChart"), state.transactions, goals, bills);
+  renderCalendar(bills, state.transactions);
+}
 function renderAnalytics() {
   const totals = monthTotals(), net = totals.income - totals.expenses;
   const balance = state.transactions.reduce((sum, item) => sum + (item.type === "income" ? 1 : -1) * Number(item.amount || 0), 0);
@@ -93,7 +103,11 @@ function renderOtherMatches(search) {
   const scope = $("searchScopeSelect")?.value || "transactions";
   const container = $("otherMatchesList");
   if (!container) return;
-  if (scope !== "all" || !search) { container.innerHTML = ""; container.classList.add("hidden"); return; }
+  if (scope !== "all" || !search) {
+    container.innerHTML = "";
+    container.classList.add("hidden");
+    return;
+  }
   const term = search.toLowerCase();
   const matchedGoals = goals.filter((goal) => goal.name?.toLowerCase().includes(term));
   const matchedBills = bills.filter((bill) => bill.name?.toLowerCase().includes(term));
@@ -129,9 +143,6 @@ function subscribeData() {
 }
 async function note(message) { if (settings.notifications) await addDoc(collection(null, "notifications"), own({ message: cleanText(message, 180), createdAt: serverTimestamp(), read: false })); }
 
-// ==========================================================
-// ✅ دالة حفظ المعاملة (مع فحص تفصيلي)
-// ==========================================================
 async function saveTransaction(event) {
   event.preventDefault();
   console.log("🟢 [saveTransaction] بدأت");
@@ -196,17 +207,32 @@ async function saveTransaction(event) {
 let modalTriggerElement = null;
 function openModal(id="") {
   $("transactionForm").reset();
-  $("transactionId").value=id;
-  $("dateInput").value=new Date().toISOString().slice(0,10);
+  $("transactionId").value = id;
+  $("dateInput").value = new Date().toISOString().slice(0,10);
+
+  const display = document.getElementById('categoryDisplay');
+  const hidden = document.getElementById('categoryInput');
+  if (display) display.textContent = 'Select Category';
+  if (hidden) hidden.value = '';
+
   if (id) {
     const item = state.transactions.find((entry) => entry.id === id);
     if (!item) { status("That transaction no longer exists.", true); return; }
-    Object.entries(item).forEach(([key, value]) => { const input = $(`${key}Input`); if (input && typeof value !== "object") input.value = value; });
+    Object.entries(item).forEach(([key, value]) => {
+      const input = $(`${key}Input`);
+      if (input && typeof value !== "object") input.value = value;
+    });
     $("recurringInput").checked = Boolean(item.recurring);
+
+    if (item.category && display && hidden) {
+      display.textContent = item.category;
+      hidden.value = item.category;
+    }
   }
+
   modalTriggerElement = document.activeElement;
   $("transactionModal").classList.remove("hidden");
-  $("transactionModal").setAttribute("aria-hidden","false");
+  $("transactionModal").setAttribute("aria-hidden", "false");
   $("descriptionInput").focus();
 }
 function closeModal() {
@@ -219,11 +245,24 @@ function closeModal() {
 async function askAI(prompt) { const response=await fetch("/api/assistant",{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${await user.getIdToken()}`},body:JSON.stringify({prompt,transactions:state.transactions,goals,bills,budget:budget()})}); const data=await response.json(); if(!response.ok) throw new Error(data.error||"Assistant is unavailable."); return data.text; }
 async function handleAssistant(eventOrText) { if(eventOrText?.preventDefault) eventOrText.preventDefault(); const prompt=typeof eventOrText === "string" ? eventOrText : $("assistantInput").value; if(!cleanText(prompt,500)) return; $("assistantInput").value=""; conversation.push({role:"user",text:prompt}); renderConversation(); try { const text=await askAI(prompt); conversation.push({role:"assistant",text}); renderConversation(); } catch(error) { conversation.push({role:"assistant",text:error.message}); renderConversation(); } }
 function download(name, content, type) { const url=URL.createObjectURL(new Blob([content],{type})); const link=document.createElement("a"); link.href=url; link.download=name; link.click(); URL.revokeObjectURL(url); }
-function renderConversation() { const chat=$("assistantChat"); chat.replaceChildren(...conversation.map((entry)=> { const row=document.createElement("div"); row.className=`assistant-message ${entry.role}`; const bubble=document.createElement("div"); bubble.className="message-bubble"; const title=document.createElement("strong"); title.textContent=entry.role === "user" ? "You" : "PocketWise AI"; const p=document.createElement("p"); p.textContent=entry.text; bubble.append(title,p); row.append(bubble); return row; })); }
+function renderConversation() {
+  const chat = $("assistantChat");
+  if (!chat) return;
+  chat.replaceChildren(...conversation.map((entry) => {
+    const row = document.createElement("div");
+    row.className = `assistant-message ${entry.role}`;
+    const bubble = document.createElement("div");
+    bubble.className = "message-bubble";
+    const title = document.createElement("strong");
+    title.textContent = entry.role === "user" ? "You" : "PocketWise AI";
+    const p = document.createElement("p");
+    p.textContent = entry.text;
+    bubble.append(title, p);
+    row.append(bubble);
+    return row;
+  }));
+}
 
-// ==========================================================
-// ✅ دالة المصادقة
-// ==========================================================
 async function authSubmit(event) {
   event.preventDefault();
   console.log("🟢 [authSubmit] تم الضغط على Sign In من النموذج");
@@ -272,9 +311,127 @@ async function authSubmitDirect(email, password) {
 }
 window.authSubmitDirect = authSubmitDirect;
 
-// ==========================================================
-// ✅ دالة bind (مع تعديل زر Save)
-// ==========================================================
+async function exportPDF() {
+  if (!state.transactions.length) {
+    status("No transactions to export.", true);
+    return;
+  }
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const pageWidth = doc.internal.pageSize.getWidth();
+
+    doc.setFontSize(18);
+    doc.setTextColor(79, 70, 229);
+    doc.text('PocketWise Report', pageWidth / 2, 20, { align: 'center' });
+
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text(`Generated: ${new Date().toLocaleDateString()}`, pageWidth / 2, 28, { align: 'center' });
+
+    const totalIncome = state.transactions.filter(t => t.type === 'income').reduce((s, t) => s + Number(t.amount), 0);
+    const totalExpense = state.transactions.filter(t => t.type === 'expense').reduce((s, t) => s + Number(t.amount), 0);
+    const balance = totalIncome - totalExpense;
+
+    doc.setFontSize(12);
+    doc.setTextColor(50);
+    doc.text(`Total Income: $${totalIncome.toFixed(2)}`, 14, 40);
+    doc.text(`Total Expenses: $${totalExpense.toFixed(2)}`, 14, 48);
+    doc.text(`Net Balance: $${balance.toFixed(2)}`, 14, 56);
+    doc.setDrawColor(200);
+    doc.line(14, 62, pageWidth - 14, 62);
+
+    const tableData = state.transactions.map(t => [
+      t.date,
+      t.type,
+      t.category,
+      t.description,
+      `$${Number(t.amount).toFixed(2)}`
+    ]);
+
+    doc.autoTable({
+      startY: 68,
+      head: [['Date', 'Type', 'Category', 'Description', 'Amount']],
+      body: tableData,
+      theme: 'grid',
+      styles: { fontSize: 8, cellPadding: 2 },
+      headStyles: { fillColor: [79, 70, 229], textColor: [255, 255, 255] },
+      alternateRowStyles: { fillColor: [245, 245, 250] },
+    });
+
+    doc.save('pocketwise-report.pdf');
+    status("PDF exported successfully!");
+  } catch (error) {
+    console.error("[PDF] Error:", error);
+    status("Failed to export PDF. Check console.", true);
+  }
+}
+
+function renderCalendar(bills, transactions) {
+  const calendarGrid = document.getElementById('calendarGrid');
+  if (!calendarGrid) return;
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const daysInMonth = lastDay.getDate();
+  const startDayOfWeek = firstDay.getDay();
+
+  const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  const billDates = bills.map(bill => bill.date);
+  const transactionDates = transactions.map(t => t.date);
+  const allEventDates = [...billDates, ...transactionDates];
+
+  let html = '';
+  dayNames.forEach(name => {
+    html += `<div class="calendar-day-header">${name}</div>`;
+  });
+
+  for (let i = 0; i < startDayOfWeek; i++) {
+    html += `<div class="calendar-day empty"></div>`;
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const isToday = day === now.getDate() && month === now.getMonth() && year === now.getFullYear();
+    const hasEvent = allEventDates.includes(dateStr);
+
+    let eventType = '';
+    if (billDates.includes(dateStr)) eventType = 'bill';
+    if (transactionDates.includes(dateStr)) eventType = 'transaction';
+    if (billDates.includes(dateStr) && transactionDates.includes(dateStr)) eventType = 'both';
+
+    html += `
+      <div class="calendar-day ${isToday ? 'active' : ''} ${hasEvent ? 'has-event' : ''}" data-date="${dateStr}">
+        <span class="day-number">${day}</span>
+        ${hasEvent ? `<span class="event-dot ${eventType}"></span>` : ''}
+      </div>
+    `;
+  }
+
+  calendarGrid.innerHTML = html;
+}
+
+function showSection(sectionId) {
+    document.querySelectorAll('.page-section').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    const target = document.getElementById(sectionId);
+    if (target) {
+        target.classList.add('active');
+    }
+    
+    document.querySelectorAll('.nav-links a[data-section]').forEach(link => {
+        const linkSection = link.dataset.section + 'Section';
+        link.classList.toggle('active', linkSection === sectionId);
+    });
+}
+
 function bind() {
   console.log("🔵 [bind] جاري ربط الأحداث...");
 
@@ -297,18 +454,13 @@ function bind() {
     console.log("✅ [bind] ربط زر Sign In");
   }
 
-  // ==========================================================
-  // ✅ ربط زر Save Transaction مباشرةً (بدون الاعتماد على form submit)
-  // ==========================================================
   const saveBtn = document.querySelector('#transactionForm .primary-btn');
   if (saveBtn) {
-    // إزالة أي مستمعات سابقة
     saveBtn.removeEventListener('click', saveTransaction);
     saveBtn.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
       console.log("🟢 [click] زر Save تم الضغط عليه");
-      // إنشاء حدث وهمي لتمريره إلى saveTransaction
       const fakeEvent = { preventDefault: () => {}, stopPropagation: () => {} };
       saveTransaction(fakeEvent);
     });
@@ -317,23 +469,148 @@ function bind() {
     console.error("❌ زر Save Transaction غير موجود");
   }
 
-  // جعل saveTransaction عالمية (كحل احتياطي)
   window.saveTransaction = saveTransaction;
 
-  // ==========================================================
-  // باقي الأحداث (لم تتغير)
-  // ==========================================================
-  $("openModalBtn").addEventListener("click", () => openModal());
-  $("addExpenseBtn").addEventListener("click", () => openModal());
-  $("closeModalBtn").addEventListener("click", closeModal);
-  $("cancelModalBtn").addEventListener("click", closeModal);
-  $("transactionModal").addEventListener("click", (event) => {
+  const trigger = document.getElementById('categoryTrigger');
+  const optionsList = document.getElementById('categoryOptions');
+  const display = document.getElementById('categoryDisplay');
+  const hiddenInput = document.getElementById('categoryInput');
+
+  if (trigger && optionsList) {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = optionsList.classList.toggle('open');
+      trigger.classList.toggle('open', isOpen);
+    });
+
+    optionsList.addEventListener('click', (e) => {
+      const li = e.target.closest('li');
+      if (!li) return;
+      const value = li.dataset.value;
+      const text = li.textContent;
+      display.textContent = text;
+      hiddenInput.value = value;
+      optionsList.classList.remove('open');
+      trigger.classList.remove('open');
+    });
+
+    document.addEventListener('click', () => {
+      optionsList.classList.remove('open');
+      trigger.classList.remove('open');
+    });
+  }
+
+  // Custom Dropdown للـ Frequency
+  const freqTrigger = document.getElementById('frequencyTrigger');
+  const freqOptions = document.getElementById('frequencyOptions');
+  const freqDisplay = document.getElementById('frequencyDisplay');
+  const freqHidden = document.getElementById('frequencyInput');
+
+  if (freqTrigger && freqOptions) {
+    freqTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = freqOptions.classList.toggle('open');
+      freqTrigger.classList.toggle('open', isOpen);
+    });
+
+    freqOptions.addEventListener('click', (e) => {
+      const li = e.target.closest('li');
+      if (!li) return;
+      const value = li.dataset.value;
+      const text = li.textContent;
+      freqDisplay.textContent = text;
+      freqHidden.value = value;
+      freqOptions.classList.remove('open');
+      freqTrigger.classList.remove('open');
+    });
+
+    document.addEventListener('click', () => {
+      freqOptions.classList.remove('open');
+      freqTrigger.classList.remove('open');
+    });
+  }
+
+  // Google Sign-In
+  const googleBtn = document.getElementById("googleSignInBtn");
+  if (googleBtn) {
+    const newBtn = googleBtn.cloneNode(true);
+    googleBtn.parentNode.replaceChild(newBtn, googleBtn);
+    newBtn.addEventListener("click", async function(e) {
+      e.preventDefault();
+      console.log("🟢 [Google] زر تم الضغط عليه");
+      try {
+        const provider = new GoogleAuthProvider();
+        provider.addScope('email');
+        provider.addScope('profile');
+        const result = await signInWithPopup(firebase().auth, provider);
+        console.log("✅ [Google] نجاح:", result.user.displayName);
+      } catch (error) {
+        console.error("❌ [Google] فشل:", error);
+        let msg = "فشل تسجيل الدخول.";
+        if (error.code === 'auth/popup-blocked') {
+          msg = "المتصفح منع النافذة. سمح بالنوافذ المنبثقة لهذا الموقع.";
+        } else if (error.code === 'auth/popup-closed-by-user') {
+          msg = "أغلقت النافذة قبل إكمال التسجيل. حاول مرة أخرى.";
+        } else if (error.code === 'auth/unauthorized-domain') {
+          msg = "الدومين غير مصرح به. أضف الدومين في Firebase Console.";
+        } else if (error.code === 'auth/operation-not-allowed') {
+          msg = "Google غير مفعّل في Firebase Console.";
+        } else if (error.code === 'auth/network-request-failed') {
+          msg = "مشكلة في الشبكة. تأكد من اتصالك بالإنترنت.";
+        } else {
+          msg = error.message.replace("Firebase: ", "");
+        }
+        document.getElementById("authSubtitle").textContent = msg;
+      }
+    });
+  }
+
+  const forgotBtn = document.getElementById("forgotPasswordBtn");
+  if (forgotBtn) {
+    const newForgotBtn = forgotBtn.cloneNode(true);
+    forgotBtn.parentNode.replaceChild(newForgotBtn, forgotBtn);
+    newForgotBtn.addEventListener("click", async function(e) {
+      e.preventDefault();
+      const email = document.getElementById("authEmail").value.trim();
+      const subtitle = document.getElementById("authSubtitle");
+      
+      if (!/^\S+@\S+\.\S+$/.test(email)) {
+        subtitle.textContent = "⚠️ Please enter your email address first.";
+        subtitle.style.color = "#fb923c";
+        return;
+      }
+
+      try {
+        subtitle.textContent = "⏳ Sending reset email...";
+        subtitle.style.color = "#8b5cf6";
+        await sendPasswordResetEmail(firebase().auth, email);
+        subtitle.textContent = "✅ Password reset email sent! Check your inbox.";
+        subtitle.style.color = "#4ade80";
+      } catch (error) {
+        console.error("❌ Forgot password error:", error);
+        let msg = error.message.replace("Firebase: ", "");
+        if (error.code === 'auth/user-not-found') {
+          msg = "❌ No account found with this email.";
+        } else if (error.code === 'auth/too-many-requests') {
+          msg = "⚠️ Too many requests. Try again later.";
+        }
+        subtitle.textContent = msg;
+        subtitle.style.color = "#fb923c";
+      }
+    });
+  }
+
+  $("openModalBtn")?.addEventListener("click", () => openModal());
+  $("addExpenseBtn")?.addEventListener("click", () => openModal());
+  $("closeModalBtn")?.addEventListener("click", closeModal);
+  $("cancelModalBtn")?.addEventListener("click", closeModal);
+  $("transactionModal")?.addEventListener("click", (event) => {
     if (event.target.id === "transactionModal") closeModal();
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && !$("transactionModal").classList.contains("hidden")) closeModal();
   });
-  $("transactionsList").addEventListener("click", (event) => {
+  $("transactionsList")?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-action]");
     if (!button) return;
     if (button.dataset.action === "edit") openModal(button.dataset.id);
@@ -347,11 +624,11 @@ function bind() {
       renderTransactions();
     });
   });
-  $("prevPageBtn").addEventListener("click", () => {
+  $("prevPageBtn")?.addEventListener("click", () => {
     currentPage = Math.max(1, currentPage - 1);
     renderTransactions();
   });
-  $("nextPageBtn").addEventListener("click", () => {
+  $("nextPageBtn")?.addEventListener("click", () => {
     currentPage++;
     renderTransactions();
   });
@@ -363,10 +640,10 @@ function bind() {
   $("globalSearchInput")?.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      $("transactionsSection")?.scrollIntoView({ behavior: "smooth" });
+      showSection('transactionsSection');
     }
   });
-  $("saveBudgetBtn").addEventListener("click", () => {
+  $("saveBudgetBtn")?.addEventListener("click", () => {
     const value = Number($("budgetInput").value);
     if (!Number.isFinite(value) || value <= 0) return status("Enter a valid monthly budget.", true);
     guarded(async () => {
@@ -374,11 +651,11 @@ function bind() {
       await note(`Monthly budget set to ${money(value)}.`);
     }, "Budget saved.");
   });
-  $("themeToggle").addEventListener("click", () => guarded(() => saveSettings({ theme: body.dataset.theme === "dark" ? "light" : "dark" })));
+  $("themeToggle")?.addEventListener("click", () => guarded(() => saveSettings({ theme: body.dataset.theme === "dark" ? "light" : "dark" })));
   $("themeSelect")?.addEventListener("change", (e) => guarded(() => saveSettings({ theme: e.target.value })));
   $("languageSelect")?.addEventListener("change", (e) => guarded(() => saveSettings({ language: e.target.value })));
   $("notificationsToggle")?.addEventListener("change", (e) => guarded(() => saveSettings({ notifications: e.target.checked })));
-  $("goalForm").addEventListener("submit", (e) => {
+  $("goalForm")?.addEventListener("submit", (e) => {
     e.preventDefault();
     const goal = {
       name: cleanText($("goalNameInput").value, 80),
@@ -394,7 +671,7 @@ function bind() {
       e.target.reset();
     }, "Goal saved.");
   });
-  $("billForm").addEventListener("submit", (e) => {
+  $("billForm")?.addEventListener("submit", (e) => {
     e.preventDefault();
     const bill = {
       name: cleanText($("billNameInput").value, 80),
@@ -410,6 +687,7 @@ function bind() {
       e.target.reset();
     }, "Bill saved.");
   });
+  
   $("exportBtn")?.addEventListener("click", () => download("pocketwise-transactions.json", JSON.stringify(state.transactions, null, 2), "application/json"));
   $("exportCsvBtn")?.addEventListener("click", () => {
     const keys = ["date","type","category","description","amount","recurring","frequency"];
@@ -418,7 +696,8 @@ function bind() {
       "text/csv;charset=utf-8"
     );
   });
-  $("importBtn")?.addEventListener("click", () => $("importInput").click());
+  $("exportPdfBtn")?.addEventListener("click", exportPDF);
+  $("importBtn")?.addEventListener("click", () => $("importInput")?.click());
   $("importInput")?.addEventListener("change", (event) => {
     guarded(async () => {
       const records = JSON.parse(await event.target.files[0].text());
@@ -442,49 +721,76 @@ function bind() {
       event.target.value = "";
     });
   });
-  $("clearDataBtn")?.addEventListener("click", () => {
+
+  document.getElementById('filterDateFrom')?.addEventListener('change', () => {
+    currentPage = 1;
+    renderTransactions();
+  });
+  document.getElementById('filterDateTo')?.addEventListener('change', () => {
+    currentPage = 1;
+    renderTransactions();
+  });
+  document.getElementById('clearDateFilterBtn')?.addEventListener('click', () => {
+    document.getElementById('filterDateFrom').value = '';
+    document.getElementById('filterDateTo').value = '';
+    currentPage = 1;
+    renderTransactions();
+  });
+
+  document.getElementById('advancedSearchBtn')?.addEventListener('click', () => {
+    currentPage = 1;
+    renderTransactions();
+  });
+  document.getElementById('clearAdvancedSearchBtn')?.addEventListener('click', () => {
+    document.getElementById('advancedSearchInput').value = '';
+    currentPage = 1;
+    renderTransactions();
+  });
+
+  const form = document.getElementById('transactionForm');
+  if (form) {
+    form.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        const saveBtn = form.querySelector('.primary-btn');
+        if (saveBtn) saveBtn.click();
+      }
+    });
+  }
+
+  $("clearDataBtn")?.addEventListener("click", async () => {
+    if (!user) {
+      status("You must be logged in to clear data.", true);
+      return;
+    }
     if (!confirm("Delete all of your PocketWise financial data? This cannot be undone.")) return;
-    guarded(async () => {
-      for (const name of ["transactions","goals","bills","notifications"]) {
-        for (const item of await new Promise((resolve, reject) => {
-          const stop = onSnapshot(query(collection(null, name), where("uid", "==", user.uid)), (snapshot) => {
-            stop();
-            resolve(snapshot.docs);
-          }, reject);
-        })) {
-          await deleteDoc(item.ref);
+    try {
+      const collections = ["transactions", "goals", "bills", "notifications"];
+      for (const name of collections) {
+        const q = query(collection(null, name), where("uid", "==", user.uid));
+        const snapshot = await getDocs(q);
+        for (const docSnap of snapshot.docs) {
+          await deleteDoc(doc(null, name, docSnap.id));
         }
       }
       await deleteDoc(doc(null, "settings", user.uid));
-    }, "All data cleared.");
+      status("✅ All data cleared successfully.");
+    } catch (error) {
+      console.error("❌ Clear data error:", error);
+      status("Failed to clear data: " + error.message, true);
+    }
   });
-  $("assistantForm").addEventListener("submit", handleAssistant);
+
+  $("assistantForm")?.addEventListener("submit", handleAssistant);
   document.querySelectorAll(".suggestion-chip").forEach((button) => {
     button.addEventListener("click", () => handleAssistant(button.dataset.text));
   });
-  $("authSwitchBtn").addEventListener("click", () => {
+  $("authSwitchBtn")?.addEventListener("click", () => {
     const register = $("authName").hidden;
     $("authName").hidden = !register;
     $("authName").required = register;
     $("authTitle").textContent = register ? "Create Account" : "Sign In";
     $("authSwitchBtn").textContent = register ? "Already have an account?" : "Need an account?";
-  });
-  $("googleSignInBtn")?.addEventListener("click", async () => {
-    try {
-      await signInWithPopup(firebase().auth, new GoogleAuthProvider());
-    } catch (error) {
-      $("authSubtitle").textContent = error.message.replace("Firebase: ", "");
-    }
-  });
-  $("forgotPasswordBtn")?.addEventListener("click", async () => {
-    const email = $("authEmail").value.trim();
-    if (!/^\S+@\S+\.\S+$/.test(email)) return $("authSubtitle").textContent = "Enter your email first.";
-    try {
-      await sendPasswordResetEmail(firebase().auth, email);
-      $("authSubtitle").textContent = "Password reset email sent.";
-    } catch (error) {
-      $("authSubtitle").textContent = error.message.replace("Firebase: ", "");
-    }
   });
   $("logoutBtn")?.addEventListener("click", async () => {
     try {
@@ -493,25 +799,24 @@ function bind() {
       $("authSubtitle").textContent = error.message.replace("Firebase: ", "");
     }
   });
-  const scrollToSection = (id) => $(id)?.scrollIntoView({ behavior: "smooth" });
-  $("viewAnalyticsBtn")?.addEventListener("click", () => scrollToSection("analyticsSection"));
-  $("openAssistantBtn")?.addEventListener("click", () => scrollToSection("assistantSection"));
-  $("notificationsBtn")?.addEventListener("click", () => scrollToSection("notificationsList"));
+
+  $("viewAnalyticsBtn")?.addEventListener("click", () => showSection('analyticsSection'));
+  $("openAssistantBtn")?.addEventListener("click", () => showSection('assistantSection'));
+  $("notificationsBtn")?.addEventListener("click", () => showSection('notificationsCalendarSection'));
   $("addGoalBtn")?.addEventListener("click", () => $("goalNameInput")?.focus());
   $("addBillBtn")?.addEventListener("click", () => $("billNameInput")?.focus());
+
   document.querySelectorAll(".nav-links a[data-section]").forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
-      document.querySelectorAll(".nav-links a").forEach((item) => item.classList.toggle("active", item === link));
-      scrollToSection(`${link.dataset.section}Section`);
+      const sectionId = link.dataset.section + 'Section';
+      showSection(sectionId);
     });
   });
+
   console.log("✅ [bind] تم ربط جميع الأحداث");
 }
 
-// ==========================================================
-// ✅ دالة التشغيل الرئيسية
-// ==========================================================
 async function boot() {
   console.log("🔵 [boot] بدء التشغيل...");
   populateCategoryOptions();
@@ -520,6 +825,8 @@ async function boot() {
     await startFirebase();
     console.log("✅ [boot] Firebase جاهز");
     bind();
+    showSection('dashboardSection');
+
     onAuthStateChanged(firebase().auth, async (account) => {
       user = account;
       $("authView").classList.toggle("hidden", !!account);
