@@ -1,28 +1,28 @@
 # PocketWise 💰
 
-A simple, glassmorphic personal finance dashboard I built to track daily expenses, keep an eye on monthly bills, and test out Gemini AI for receipt scanning.
+I made PocketWise because I got tired of Excel sheets and $10/month expense apps. It's a quick web dashboard to log daily spending, check monthly bills, and scan receipts using Gemini AI.
 
-[Live Demo](https://pocketwise.ox0x.com) • [GitHub Repo](https://github.com/megazone272/PocketWise)
+[Try Live Demo](https://pocketwise.ox0x.com) | [Source Code on GitHub](https://github.com/megazone272/PocketWise)
 
 ---
 
 <div align="center">
-  <img src="screenshots/02_dashboard_dark.png" alt="PocketWise Dark Dashboard" width="100%" />
+  <img src="screenshots/02_dashboard_dark.png" alt="PocketWise Dashboard" width="100%" />
 </div>
 
 ---
 
-## What is this?
+## Why I wrote this
 
-Honestly, I was getting pretty annoyed with bloated expense apps that ask for $10 a month just to log basic transactions. I wanted something clean that I could open on my phone or laptop, add an expense in 5 seconds, and actually see where my money was going without setting up complicated Excel formulas.
+Tracking daily expenses shouldn't feel like a chore. Every app I tried was either crammed with ads, wanted a monthly subscription, or made me fill out ten input fields just to log a coffee purchase.
 
-So I built PocketWise over a few weekends. It runs completely in the browser using vanilla JS, CSS glassmorphism, and Firebase for saving data. I also wired it up to Google Gemini so I could take pictures of receipts or ask questions about my spending habits in plain English or Arabic.
+I wanted something clean that opens instantly on my phone or laptop. So I spent a few weekends building PocketWise. No heavy JS frameworks, no build steps — just vanilla HTML, CSS glassmorphism, and plain JavaScript. For saving data, I used Firebase. I also added Google Gemini so I can just snap a picture of a receipt when I don't feel like typing out transactions by hand.
 
 ---
 
-## App Screenshots
+## Screenshots
 
-Here is how the dashboard looks across different sections:
+Here is what the interface looks like across different devices and modes:
 
 <div align="center">
 
@@ -95,21 +95,21 @@ Here is how the dashboard looks across different sections:
 
 ---
 
-## Main Things You Can Do
+## What it does
 
-- **Ask AI about your money**: You can chat with Gemini to ask stuff like "where did most of my money go this month?" or ask for advice on lowering your food budget.
-- **Scan paper receipts**: Just snap or upload a photo of a receipt. The AI reads the merchant name, total cost, and date so you don't have to type it manually.
-- **Voice logging**: If you're on your phone and lazy to type, hit the mic button and just speak out your transaction.
-- **Manage daily transactions**: Full control to add, edit, search, or filter income and expenses by category. You can export everything to CSV, JSON, or printable PDF summaries whenever you want.
-- **Budget tracking with warnings**: Set monthly limits for categories like groceries or entertainment. It shows a visual warning once you hit 80% of your budget limit.
-- **Bills & subscriptions calendar**: A visual calendar so you don't forget when upcoming bills or subscriptions are due.
-- **Dark & Light mode**: Switch themes whenever you want. The glassmorphism UI adapts smoothly.
-- **English & Arabic (RTL)**: Native Arabic support with full Right-To-Left layout direction.
-- **Works offline (PWA)**: Built with service workers so it caches locally and works even if your Wi-Fi drops.
+- **Receipt OCR with Gemini**: Take a photo of a paper receipt and upload it. The AI reads the vendor, total price, and date for you.
+- **AI Finance Assistant**: You can ask questions in plain English or Arabic like "how much did I spend on groceries this month?" or "give me ideas to cut down spending".
+- **Voice logging**: Tap the mic button and talk to add expenses when your hands are full.
+- **Transaction Ledger**: Add, edit, search, or filter income and expenses. Supports CSV, JSON, and PDF exports whenever you need backups.
+- **Category Budgets**: Set spending caps for food, rent, or utilities. It turns yellow/red when you hit 80% of your budget limit.
+- **Bills Calendar**: Visual calendar layout so you don't forget upcoming bill payments or subscriptions.
+- **Dark & Light Mode**: Glassmorphic theme switcher that adapts to your system preferences.
+- **Full Arabic & RTL Support**: Native Right-To-Left layout support for Arabic speakers.
+- **Offline PWA**: Service workers cache the app locally so it works even without internet access.
 
 ---
 
-## Tech Stack
+## Tech stack
 
 - **Frontend**: HTML5, Vanilla CSS3 (Glassmorphism), Vanilla JS (ES6 modules)
 - **Database & Auth**: Firebase Auth + Cloud Firestore
@@ -119,30 +119,28 @@ Here is how the dashboard looks across different sections:
 
 ---
 
-## Folder Structure
+## Project structure
 
 ```text
 PocketWise/
-├── index.html          # Main web page
-├── style.css           # Custom glassmorphism styles
-├── script.js           # Main app logic & navigation
-├── server.js           # Node.js backend proxy for AI API keys
+├── index.html          # Main HTML entry
+├── style.css           # Glassmorphism design system
+├── script.js           # Core UI & navigation router
+├── server.js           # Node backend proxy for AI keys
 ├── firebase.js         # Firebase Auth & Firestore setup
-├── settings.js         # Theme & language preferences
+├── settings.js         # Language & theme settings
 ├── transactions.js     # Transaction CRUD operations
 ├── translations.js     # English and Arabic translation dictionaries
-├── chart.js            # Chart.js integration
+├── chart.js            # Chart.js charts
 ├── calendar.js         # Bills calendar logic
-├── sw.js               # Service Worker for PWA offline support
-├── screenshots/        # App screenshots
+├── sw.js               # Service Worker for offline PWA
+├── screenshots/        # Application screenshots
 └── README.md           # Documentation
 ```
 
 ---
 
-## How to Run It Locally
-
-If you want to spin this up on your local machine:
+## How to run it
 
 1. Clone the repo:
    ```bash
@@ -150,29 +148,29 @@ If you want to spin this up on your local machine:
    cd PocketWise
    ```
 
-2. Install dependencies:
+2. Install npm packages:
    ```bash
    npm install
    ```
 
 3. Setup environment variables:
-   Copy `.env.example` to `.env` and paste your Firebase & Gemini API keys inside:
+   Copy `.env.example` to `.env` and fill in your Firebase and Gemini API keys:
    ```bash
    cp .env.example .env
    ```
 
-4. Start the app:
+4. Run the server:
    ```bash
    npm start
    ```
 
-5. Open your browser to `http://localhost:3007`.
+5. Open your browser and go to `http://localhost:3007`.
 
 ---
 
-## Security Notes
+## Security
 
-Your financial data is saved in Firebase Firestore under strict rules (`request.auth.uid == userId`) so only you can access your own account. All secret Gemini API keys are kept safely on the Node backend side and never exposed in public frontend JS.
+Your data is stored in Firebase Firestore under security rules (`request.auth.uid == userId`) so no one else can read or write your transaction records. Secret Gemini API keys are proxied on the server side so they never leak in browser code.
 
 ---
 
@@ -180,6 +178,6 @@ Your financial data is saved in Firebase Firestore under strict rules (`request.
 
 Created by **Nour Ahmed**
 - GitHub: [@megazone272](https://github.com/megazone272)
-- Repo: [megazone272/PocketWise](https://github.com/megazone272/PocketWise)
+- Repository: [megazone272/PocketWise](https://github.com/megazone272/PocketWise)
 
-Feel free to leave a ⭐ star on GitHub if you like the project!
+If you find this project useful, feel free to give it a ⭐ star on GitHub!
