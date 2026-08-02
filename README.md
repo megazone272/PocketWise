@@ -22,173 +22,118 @@
 ---
 
 ## 🌟 Overview
-
-**PocketWise** is a state-of-the-art, progressive web application (PWA) designed for modern personal finance tracking, intelligent budgeting, and AI-driven financial insights. Powered by Google Gemini AI, Chart.js, and modern Glassmorphism UI architecture, PocketWise offers a seamless interface across mobile, tablet, and desktop devices.
-
+**PocketWise** is a cutting-edge, progressive web application (PWA) that offers state-of-the-art modern ways to track personal finances, intelligently budget with the help of AI, and even discover financial insights guided by AI. It is backed by Google Gemini AI for content understanding, Chart.js for beautiful data visualiza-tions and a modern Glassmorphism UI design, that makes PocketWise available and convenient to use regardless of your device mobile, tablet or desktop.
 ---
-
-## 📸 Screenshots & Interface Walkthrough
-
+## 📸 Screenshots & Interface walkthrough
 <div align="center">
-
-### 🌙 Dark & ☀️ Light Dashboard Modes
+🌙 Dark & ☀ Light Dashboard Modes
 <table>
-  <tr>
-    <td width="50%" align="center"><b>Dark Mode Dashboard</b></td>
-    <td width="50%" align="center"><b>Light Mode Dashboard</b></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/02_dashboard_dark.png" width="100%" alt="Dashboard Dark" /></td>
-    <td><img src="screenshots/10_dashboard_light.png" width="100%" alt="Dashboard Light" /></td>
-  </tr>
+<tr>
+<td width="50%" align="center"><b>Dark Mode Dashboard</b></td>
+<td width="50%" align="center"><b>Light Mode Dashboard</b></td>
+</tr>
+<tr>
+<td><img src="screenshots/02_dashboard_dark.png" width="100%" /></td>
+<td><img src="screenshors/10_dashboard_light.png" width="100%" /></td>
+</tr>
 </table>
+💳 Transaction Management & AI Receipt Scanner
+Transaction ledger & filters on the one side and adding your expense together with AI modal in the background on the other side.
+Transactions Ledger & Filters
+.
+"Add Expense & AI Scanner Modal"
+.
+### 🎯 Monthly Budget Planner & Analytics Trends
+Budgets
+n
+.
+Interactive Analytics & Trends
+Analytics
 
-### 💳 Transaction Management & AI Receipt Scanner
-<table>
-  <tr>
-    <td width="50%" align="center"><b>Transactions Ledger & Filters</b></td>
-    <td width="50%" align="center"><b>Add Expense & AI Scanner Modal</b></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/03_transactions.png" width="100%" alt="Transactions" /></td>
-    <td><img src="screenshots/04_add_transaction_modal.png" width="100%" alt="Add Transaction" /></td>
-  </tr>
-</table>
+< TD>
+< BR ALIGN=CENTER>
+### ✦ AI Financial Assistant &Notifications Calendar
+Gemini AI Financial Assistant Notifications &Bills Calendar
 
-### 🎯 Budget Planner & 📈 Financial Analytics
-<table>
-  <tr>
-    <td width="50%" align="center"><b>Monthly Budget Planner</b></td>
-    <td width="50%" align="center"><b>Interactive Analytics & Trends</b></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/05_budgets.png" width="100%" alt="Budgets" /></td>
-    <td><img src="screenshots/06_analytics.png" width="100%" alt="Analytics" /></td>
-  </tr>
-</table>
 
-### ✦ AI Assistant & 📅 Notifications Calendar
-<table>
-  <tr>
-    <td width="50%" align="center"><b>Gemini AI Financial Assistant</b></td>
-    <td width="50%" align="center"><b>Notifications & Bills Calendar</b></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/07_ai_assistant.png" width="100%" alt="AI Assistant" /></td>
-    <td><img src="screenshots/08_notifications_calendar.png" width="100%" alt="Notifications Calendar" /></td>
-  </tr>
-</table>
+### 🔐 Authenticate Yourself & 📱 Responsiveness in Mobile
 
-### 🔐 Authentication & 📱 Mobile Responsiveness
-<table>
-  <tr>
-    <td width="50%" align="center"><b>Authentication Screen</b></td>
-    <td width="50%" align="center"><b>Mobile Responsive View</b></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/01_auth_page.png" width="100%" alt="Auth Page" /></td>
-    <td><img src="screenshots/11_mobile_view.png" width="100%" alt="Mobile View" /></td>
-  </tr>
-</table>
 
-</div>
 
----
 
-## ✨ Key Features
-
-### 📊 1. Smart Dashboard & Financial Health Score
-- **Real-Time Financial Metrics**: Instant updates for Total Balance, Monthly Income, Expenses, and Net Savings with trend indicators.
-- **Dynamic Financial Health Score (0-100)**: Evaluates cash flow stability, savings rates, and budget adherence using interactive SVG charts.
-- **Goal & Bill Widgets**: Track progress on savings targets and upcoming bill obligations at a glance.
-- **Activity Timeline**: Live feed of recent transaction activities.
-
-### 💳 2. Comprehensive Transaction Management
-- **Full CRUD Operations**: Easily add, edit, filter, and delete transactions.
-- **Smart Filtering & Search**: Instant lookup by transaction name, type (Income/Expense), category, or custom search scope.
-- **Recurring Expenses**: Schedule weekly, monthly, or yearly recurring payments.
-- **AI Receipt Scanner**: Extract itemized expense details automatically from physical receipt photos or PDFs.
-- **Data Export & Import**: Full support for exporting and importing data in both **JSON** and **CSV** formats, plus downloadable **PDF reports**.
-
+---  ---
+## ✨ Core Features
+### 📊 Financial Dashboard & Health Monitoring
+- Your finances at a glance:
+- Instant balance, monthly earning & expenses
+- Net savings and trends
+- Visual indicators for positive changes and negative ones
+- Overall health evaluation, cash flow, savings percentages, and budgeting performance. The assessment is presented using dynamic charts and a score (0 -100).
+- At-a-glance widgets: goals achieved vs. targets, bills due, etc.
+- Real-time feed of transactions for the activity timeline.
+### 💳 Full Transaction Handling
+- All the CRUD (create, replace/update, delete) functions to add, update or delete your transaction records.
+- Powerful filters to find transaction quickly, like searching for name, type (income/expense), category or custom filters.
+- Manage expenses that you have to pay on a regular basis.
+(weekly, monthly or yearly).
+- Smart scanning of receipts with help of the artificial intelligence that automatically extracts the individual lines of expenses from a physical receipt picture or uploadedPDF file.
+- **Data Management**: Full support for exporting and importing data in both **JSON** and **CSV** formats, along with a downloadable **PDF reports** feature.
 ### 🎯 3. Budget Planner & Goal Tracker
-- **Monthly Budget Targets**: Set spending caps and monitor live remaining budget percentage.
-- **Alert & Threshold System**: Visual warnings when spending reaches 80% or exceeds set monthly limits.
-- **Interactive Savings Goals**: Set target deadlines and watch progress update dynamically.
-
-### 📈 4. Advanced Analytics & Visualizations
-- **Interactive Line Charts**: Track income vs. spending trends over time.
-- **Category Breakdown Charts**: Visual representation of discretionary budget allocation.
-- **Powered by Chart.js 4**: High-performance interactive visualizations.
-
-### ✦ 5. AI Financial Assistant & Voice Input
-- **Gemini-Powered Chatbot**: Instant contextual advice on spending cuts, budget optimizations, and savings strategies.
-- **One-Click Quick Actions**: Quick prompts like *"Cut spending by 15%"*, *"Boost savings"*, and *"Summarize activity"*.
-- **Voice Input**: Tap to speak financial queries directly to the assistant.
-
-### 🔔 6. Calendar & Smart Notifications
-- **Visual Month Calendar**: View upcoming bills, payment due dates, and transaction history on an interactive calendar grid.
-- **Notifications Center**: Instant alerts for large expenses, upcoming bill reminders, and potential recurring subscription detections.
-
-### ⚙️ 7. Customization & Offline PWA Capabilities
-- **Dark & Light Mode**: Seamless theme switching with glassmorphism visual aesthetics.
-- **Multi-Language & RTL Support**: Built-in support for **English**, **Arabic (العربية)** with native RTL layout, and **Spanish (Español)**.
-- **Offline PWA Support**: Installable on mobile & desktop with offline-first service worker cache.
-- **Command Palette (`Cmd / Ctrl + K`)**: Keyboard-driven quick navigation and command execution.
-
+- **Monthly Budget Limits**: Decide how much you can spend and watch as the remaining percentage is continuously updated.
+- **Warning System**: A graphical indicator that the 80% spending limit have been reached or the monthly budget has been over-exceeded. The warning system is part of the app and it gives the user a way to take quick actions.
+- **Savings Goals**: Setting the final target, a user is allowed to create a countdown of days.
+### 📈 4. Advanced Data Interpretation & Visualization
+- **Line Charts**: Visual depiction of your income vs. spending.
+- **Pie/Bar Charts with the category of expenses vs. income**: It's the pictorial representation of your discretionary budget.
+- **Chart.js 4**: High-quality, animated, customizable charts for data analysis.
+### ✦ 5. AI-Driven Financial Assistant & Voice Command
+- **Gemini-Backed Chatbot**: A real-time conversation with suggestions on ways to make your spending habits more effective, reduce the budget waste, and identify possible money-saving measures.
+- **Immediate Quick Actions (1-Click)**: One-tap suggestions like *I'll cut expenses by 15%*, *I'll increase my savings*, and *Show me the summary of my transactions*.
+- **Voice Control**: Speak a financial request directly to the AI by tapping on the microphone button.
+### 🔔 6. Calendar & Smart Alerts
+- **Monthly Calendar View**: You can find an easy way to see and remember the bills you need to pay through the calendar.
+- **Notifications**: Receive the first-hand alerts regarding a major expense, the reminder of the upcoming bills, and the notification of the potential recurrent subscription.
+### ⚙ 7. Customize & Work Offline
+- **Appearance (Dark / Light)**: The mode change is done smoothly, and the beautiful glassmorphism style makes it possible to have an attractive interface without losing its functionality.
+- **Multilingual / RTL Ready**: English and Spanish (Español) are pre-set language options. Additionally, you can choose Arabic (العربية) as your language for the user interface with its native RTL text layout.
+- **PWA Features**: It works both on mobile and desktop as a native app with a local copy of a database and service workers allowing full offline support after the first access.
+-, **Keyboard Command (Cmd / Ctrl + K) Window** allows performing fast actions and navigating using just the keyboard.
 ---
-
-## 🛠️ Technology Stack
-
-| Component | Technology / Library |
-| :--- | :--- |
-| **Frontend Core** | HTML5, JavaScript (ES6+ Modules), Vanilla CSS3 (Glassmorphism design system) |
-| **Typography** | Google Fonts (*Outfit*, *Inter*) |
-| **Data Visualization** | Chart.js 4.4, Marked.js |
-| **Backend & Auth** | Firebase Authentication, Cloud Firestore |
-| **AI Integration** | Google Gemini API (Serverless REST API) |
-| **PWA & Offline** | Web Application Manifest, Service Worker |
-| **PDF Generation** | jsPDF, AutoTable |
-
+## 🛠 Technology Stack
+Component | Technology / Library
+--- | ---
+**Core UI Framework** | HTML5, JavaScript (ES6+Modules), Vanilla CSS3 (Glassmorphism design system')
+**Fonts / Text** | Font Library (Outfit, Inter)
+**Charts** | JavaScript Chart Library 4.4, Highlight.js
+**Identity & Storage** | Firebase Auth, Cloud Firestore
+**Brain & Chatbot AI** | Google Gemini API (REST API)
+**PWA & Offline Support** | Web Application Manifest, Service Worker
+**Printing / Exporting to PDF** | jsPDF, AutoTable
 ---
-
-## 🚀 Quick Start & Installation
-
-### Option 1: Live Web App (No Installation Needed)
-Access the live version directly at: [https://pocketwise.ox0x.com](https://pocketwise.ox0x.com)
-
-### Option 2: Local Development Setup
-
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/your-username/pocketwise.git
-   cd pocketwise
-   ```
-
-2. **Serve Files Locally**
-   You can use any static server, such as `live-server` or `serve`:
-   ```bash
-   npx serve .
-   ```
-
-3. **Open in Browser**
-   Navigate to `http://localhost:3000` or the port displayed in your terminal.
-
+## 🚀 Get Started / How to Install
+### Choice a: Web App on the Fly (Instant Use)
+Jump into your web-connected computer at
+[https://pocketwise.ox0x.com](https://pocketwise.ox0x.com)
+to try out the web app version of the software.
+### Choice b: Development / Debugging / Customizing
+1. **Fork/Git the Repo**
+```bash
+git clone https://github.com/your-username/pocketwise.git
+cd pocketwise
+2. **Run / Show / Play Locally**
+The method is to use a local static server like, e. g., live-server or the serve:
+```bash
+npx serve.
+```
+3. **View on a browser**
+Go to the local computer page, usually `http://localhost:3000` or the same address that was printed in your console by the static server.
 ---
-
-## 🔒 Security & Data Privacy
-
-- **Client-Side Privacy**: All sensitive transaction calculations are executed locally in the browser.
-- **Firebase Auth & Firestore Rules**: User data is isolated per authenticated account using strict security rules.
-- **Local Fallback**: Data is cached in `localStorage` for offline access and instant loading.
-
+## 🛡 Protection & Users' Data Protection
+Security of user's data is handled using the following mechanisms:
+- **Client-Side Calculation and Data Security**: The user is safe to do transaction-related calculations on his own PC without giving his privacy away online.
+- User accounts are secured by Firebase Auth and Firestore Rules. Each authenticated user is given a separate, isolated database.
+- If Internet is unavailable, or it's slow, the client will fall back to the local copy in the browser (localStorage). It allows you to still do your work offline and later sync everything when back online.
 ---
-
 ## 📄 License
+This project is available under the MIT License read all about it in LICENSE.
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-<p align="center">
-  Made with ❤️ by the PocketWise Team | Live Web App: <a href="https://pocketwise.ox0x.com">pocketwise.ox0x.com</a>
-</p>
