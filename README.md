@@ -1,48 +1,232 @@
-# PocketWise 💰
-
-I made PocketWise because I got tired of Excel sheets and $10/month expense apps. It's a quick web dashboard to log daily spending, check monthly bills, and scan receipts using Gemini AI.
-
-[Try Live Demo](https://pocketwise.ox0x.com) | [Source Code on GitHub](https://github.com/megazone272/PocketWise)
-
----
-
+# 💰 PocketWise
 <div align="center">
-  <img src="screenshots/02_dashboard_dark.png" alt="PocketWise Dashboard" width="100%" />
+
+# 💜 PocketWise Premium
+### AI-Powered Personal Finance Platform
+Get assistance with finances by using Artificial Intelligence smartly.
+Through an attractive premium dashboard developed on modern web technologies and powered by Al one can keep track of his or hers income, expenses, bills, savings goals and budgets easily.
+
+<br/>
+
+<img src="screenshots/02_dashboard_dark.png" alt="PocketWise Dashboard" width="100%" />
+
 </div>
 
+# ✨ Features
+## 🤖 AI Financial Assistant
+- financial assistant powered by Al
+- analysis of spending patterns at a higher level
+- recommendations about the Budget
+- Saving ideas
+- Financial insights
+- Overview of monthly spends
+- Detailed analysis of the transactions
+- Dual (Arabic & English)language support
+- RTL support
+- Responses according to the situation/ context
 ---
-
-## Why I wrote this
-
-Tracking daily expenses shouldn't feel like a chore. Every app I tried was either crammed with ads, wanted a monthly subscription, or made me fill out ten input fields just to log a coffee purchase.
-
-I wanted something clean that opens instantly on my phone or laptop. So I spent a few weekends building PocketWise. No heavy JS frameworks, no build steps — just vanilla HTML, CSS glassmorphism, and plain JavaScript. For saving data, I used Firebase. I also added Google Gemini so I can just snap a picture of a receipt when I don't feel like typing out transactions by hand.
+## 💳 Managing Transactions & Budget
+- Entering transactions
+- Modifying the already-made transaction
+- Removing a transaction
+- Listing & Managing of Categories
+- Keeping track of your Income
+- Keeping track of your Expenses
+- Verifying a transaction
+- Searching & Filtering
+---
+## 📊 Smart Dashboard
+- Overview of the state of finances
+- Breakdown of the Income
+- Breakdown of the Expenses
+- Tracking the Budget
+- Using Charts
+- Spending data exploration
+- Overview of the Cash Flow
+- Taking the next steps
+- Easily adaptable Layout/Interface/ Dashboard
+---
+## 🎯 Goals
+- Set Your Savings Goals
+- Checking your goal Progress
+- Visual representations or indicators of a goal's progress
+- Managing your Goals
+---
+## 🧾 Bills
+- Manage your Bills
+- Track due dates
+- Track upcoming bills
+- Keeping track of Bill Payments/Receivables
+---
+## 🎨 Premium User Interface
+- The Design Based Upon Glassmorphism
+- Updated Look Of The Dashboard
+- Eye catching Cards
+- The Design that is Flexible for All the Screen Sizes
+- The Dark Theme
+- The Light
+- Keyboard shortcut Palette
+- The Smoothly Transitioning Interface
+- The Toast Style Messaging
+- A Mobile-friendly Interface
+---
+## 🔐 Authentication
+- Use of Firebase Authentication
+- Email & Password Sign-In
+- Sign-in with Google
+- Reset of the Password
+- The feature where one stays logged in even with closing the browser
+- Securing the User Sessions
+---
+## ☁ Backend
+- Node.js
+- Using Firebase Firestore
+- REST API Design
+- The Groq AI Implementation
+---
+# 🛠 Development Tools
+### Front-end Development
+- HTML5
+- CSS 3.0
+- The use of JavaScript(ECMASCRIPT 6)
+### Backend Development
+- Node.js
+- firebase
+- Cloud Firestore
+- Groq AI API
+### The libraries
+- chart.js
+- firebase SDK
+---
+# 📁 Project Organization
+```
+PocketWise
+│
+├── index.html
+├── style.css
+├── script.js
+├── server.js
+├── firebase.js
+├── settings.js
+├── transactions.js
+├── translations.js
+├── chart.js
+├── sw.js
+├── manifest.webmanifest
+├── firestore.rules
+├── package.json
+├── package-lock.json
+├── .env.example
+├── test/
+└── README.md
+```
+---
+# 📲 Deploying
+To obtain a local copy please perform git clone
+```bash
+git clone https://github.com/megazone272/PocketWise.git
+```
+Switch to PocketWise
+```bash
+cd PocketWise
+```
+Install the dependencies
+```bash
+npm install
+```
+Creating your environment file
+Copy the example environment file and use it as a starting point for your own environmental setup:
+```bash
+cp .env.example .env
+```
+Insert your Firebase and Groq API keys in the appropriate fields.
+Start your application using the following command:
+```bash
+npm start
+```
+To open the browser you can follow these steps:
+http://localhost:3007
 
 ---
+🤖 PocketWise AI
+PocketWise AI can help its users in several ways:
+Analyzing their financial patterns and behaviors
+Telling a narrative of their financial activity
+Helping them to save
+Planning their budget
+Identifying trends in their financial activities
+Offering help about financial stuff they may not have known anything about yet
+Giving them financial advice which is customized to them
 
-## Screenshots
+----
+🔥 Firebase Services
+Among the features from Firebase that Powered Money uses, there are:
+Firebase Authentication
+Cloud Firestore
+Firestore Security Rules
 
-Here is what the interface looks like across different devices and modes:
+----
+🌍 Supported Languages
+You can use Powered Money in:
+🇺🇸 English
+🇪🇬 العربية
+
+-----
+📱 Responsive Design
+This is powered to work best on different devices including:
+Desktop
+Big Computer
+Tablet
+Mobile phone
+
+----
+🔒 Security
+Below is a list of the security techniques used by Powered Money:
+Firebase Authentication
+Firestore Security Rules
+Encrypted REST API
+Input Validation
+Private User Data
+
+----
+📈 Future Plans
+The following are some of the upcoming features of Powered Money (they are all ideas, nothing is guaranteed yet!):
+"" AI-based Receipt Scanner (which will support OCR)
+""Assistant (with voice)
+""Financial wellness measure
+""AI Coach
+""Smart reminders
+""AI-based financial planning
+""Monthly reports
+""PDF Export
+""Excel Export
+""Enhanced Text search
+""Offline support (PWA)
+""Detect recurring monthly bills
+""Ability to handle different currencies
+
+---
+## 📸 Screenshots
 
 <div align="center">
 
-### Dark & Light Themes
+### 🌙 Dark & ☀️ Light Mode
 <table>
   <tr>
     <td width="50%" align="center"><b>Dark Mode</b></td>
     <td width="50%" align="center"><b>Light Mode</b></td>
   </tr>
   <tr>
-    <td><img src="screenshots/02_dashboard_dark.png" width="100%" alt="Dark Mode" /></td>
-    <td><img src="screenshots/10_dashboard_light.png" width="100%" alt="Light Mode" /></td>
+    <td><img src="screenshots/02_dashboard_dark.png" width="100%" alt="Dark Mode Dashboard" /></td>
+    <td><img src="screenshots/10_dashboard_light.png" width="100%" alt="Light Mode Dashboard" /></td>
   </tr>
 </table>
 
-### Transactions & Receipt OCR
+### 💳 Transactions & Add Expense
 <table>
   <tr>
     <td width="50%" align="center"><b>Transactions List</b></td>
-    <td width="50%" align="center"><b>Add Expense / Receipt Scan</b></td>
+    <td width="50%" align="center"><b>Add Transaction</b></td>
   </tr>
   <tr>
     <td><img src="screenshots/03_transactions.png" width="100%" alt="Transactions" /></td>
@@ -50,11 +234,11 @@ Here is what the interface looks like across different devices and modes:
   </tr>
 </table>
 
-### Budgets & Chart Analytics
+### 🎯 Budgets & 📈 Analytics
 <table>
   <tr>
-    <td width="50%" align="center"><b>Monthly Category Budgets</b></td>
-    <td width="50%" align="center"><b>Visual Analytics & Trends</b></td>
+    <td width="50%" align="center"><b>Budget Tracker</b></td>
+    <td width="50%" align="center"><b>Analytics Charts</b></td>
   </tr>
   <tr>
     <td><img src="screenshots/05_budgets.png" width="100%" alt="Budgets" /></td>
@@ -62,122 +246,52 @@ Here is what the interface looks like across different devices and modes:
   </tr>
 </table>
 
-### AI Chatbot & Bills Calendar
+### 🤖 AI Assistant & 📅 Bills Calendar
 <table>
   <tr>
-    <td width="50%" align="center"><b>Gemini AI Chat</b></td>
-    <td width="50%" align="center"><b>Bills Calendar View</b></td>
+    <td width="50%" align="center"><b>AI Assistant</b></td>
+    <td width="50%" align="center"><b>Bills Calendar</b></td>
   </tr>
   <tr>
-    <td><img src="screenshots/07_ai_assistant.png" width="100%" alt="AI Chat" /></td>
-    <td><img src="screenshots/08_notifications_calendar.png" width="100%" alt="Calendar" /></td>
+    <td><img src="screenshots/07_ai_assistant.png" width="100%" alt="AI Assistant" /></td>
+    <td><img src="screenshots/08_notifications_calendar.png" width="100%" alt="Bills Calendar" /></td>
   </tr>
 </table>
 
-### Settings & Mobile Interface
+### ⚙️ Settings & 📱 Mobile View
 <table>
   <tr>
-    <td width="50%" align="center"><b>Settings Panel</b></td>
-    <td width="50%" align="center"><b>Mobile Layout</b></td>
+    <td width="50%" align="center"><b>Settings</b></td>
+    <td width="50%" align="center"><b>Mobile View</b></td>
   </tr>
   <tr>
     <td><img src="screenshots/09_settings.png" width="100%" alt="Settings" /></td>
-    <td><img src="screenshots/11_mobile_view.png" width="100%" alt="Mobile" /></td>
+    <td><img src="screenshots/11_mobile_view.png" width="100%" alt="Mobile View" /></td>
   </tr>
 </table>
 
-### Authentication
+### 🔐 Login Screen
 <p align="center">
-  <img src="screenshots/01_auth_page.png" width="80%" alt="Auth Page" />
+  <img src="screenshots/01_auth_page.png" width="80%" alt="Login Screen" />
 </p>
 
 </div>
 
 ---
+🤝 Contributing
+We really appreciate you helping and are always happy to receive contributions from you. Please follow the steps described in the next paragraph:
+Fork your personal copy of the open source project repository, pick a unique name for a new branch, and finally send to the main repository your changes as a Pull Request.
 
-## What it does
+----
+👨‍💻 Author
+**Nour Ahmed**
+Check-out his GitHub at the following link:
+https://github.com/megazone272
 
-- **Receipt OCR with Gemini**: Take a photo of a paper receipt and upload it. The AI reads the vendor, total price, and date for you.
-- **AI Finance Assistant**: You can ask questions in plain English or Arabic like "how much did I spend on groceries this month?" or "give me ideas to cut down spending".
-- **Voice logging**: Tap the mic button and talk to add expenses when your hands are full.
-- **Transaction Ledger**: Add, edit, search, or filter income and expenses. Supports CSV, JSON, and PDF exports whenever you need backups.
-- **Category Budgets**: Set spending caps for food, rent, or utilities. It turns yellow/red when you hit 80% of your budget limit.
-- **Bills Calendar**: Visual calendar layout so you don't forget upcoming bill payments or subscriptions.
-- **Dark & Light Mode**: Glassmorphic theme switcher that adapts to your system preferences.
-- **Full Arabic & RTL Support**: Native Right-To-Left layout support for Arabic speakers.
-- **Offline PWA**: Service workers cache the app locally so it works even without internet access.
+-----
+⭐ Support
+The author is very grateful to everyone who likes the repo and has been giving it stars. That kind of support helps in getting more users and in the creation of new features.
 
----
-
-## Tech stack
-
-- **Frontend**: HTML5, Vanilla CSS3 (Glassmorphism), Vanilla JS (ES6 modules)
-- **Database & Auth**: Firebase Auth + Cloud Firestore
-- **Charts**: Chart.js 4.4
-- **AI Integration**: Google Gemini API & Groq REST API
-- **PDF Export**: jsPDF & AutoTable
-
----
-
-## Project structure
-
-```text
-PocketWise/
-├── index.html          # Main HTML entry
-├── style.css           # Glassmorphism design system
-├── script.js           # Core UI & navigation router
-├── server.js           # Node backend proxy for AI keys
-├── firebase.js         # Firebase Auth & Firestore setup
-├── settings.js         # Language & theme settings
-├── transactions.js     # Transaction CRUD operations
-├── translations.js     # English and Arabic translation dictionaries
-├── chart.js            # Chart.js charts
-├── calendar.js         # Bills calendar logic
-├── sw.js               # Service Worker for offline PWA
-├── screenshots/        # Application screenshots
-└── README.md           # Documentation
-```
-
----
-
-## How to run it
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/megazone272/PocketWise.git
-   cd PocketWise
-   ```
-
-2. Install npm packages:
-   ```bash
-   npm install
-   ```
-
-3. Setup environment variables:
-   Copy `.env.example` to `.env` and fill in your Firebase and Gemini API keys:
-   ```bash
-   cp .env.example .env
-   ```
-
-4. Run the server:
-   ```bash
-   npm start
-   ```
-
-5. Open your browser and go to `http://localhost:3007`.
-
----
-
-## Security
-
-Your data is stored in Firebase Firestore under security rules (`request.auth.uid == userId`) so no one else can read or write your transaction records. Secret Gemini API keys are proxied on the server side so they never leak in browser code.
-
----
-
-## Author
-
-Created by **Nour Ahmed**
-- GitHub: [@megazone272](https://github.com/megazone272)
-- Repository: [megazone272/PocketWise](https://github.com/megazone272/PocketWise)
-
-If you find this project useful, feel free to give it a ⭐ star on GitHub!
+----
+### 💜 PocketWise
+### Make more money with the right decisions! This app is a product made with ❤ by combining JavaScript, Firebase and AI.
