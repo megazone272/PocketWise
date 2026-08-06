@@ -7,7 +7,6 @@
     <title>PocketWise | AI Finance Dashboard</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <!-- Added fonts for modern typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -379,7 +378,7 @@
             </div>
           </div>
         </section>
-        <!-- Phase 1 v2.0: Floating Action Button -->
+        
         <button class="fab" id="fabAddBtn" aria-label="Add Transaction">+</button>
       </main>
     </div>
@@ -396,7 +395,6 @@
         <form id="transactionForm" novalidate>
           <input type="hidden" id="transactionId" />
           
-          <!-- AI Receipt Scanner -->
           <div class="receipt-scanner-wrap">
             <button type="button" class="ghost-btn receipt-btn" id="scanReceiptBtn">
               <span>📷</span> Scan Receipt with AI
@@ -457,7 +455,6 @@
         </form>
     </div>
 
-    <!-- Toast Notifications Container -->
     <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
