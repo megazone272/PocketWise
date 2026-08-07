@@ -12,114 +12,127 @@ import {
   signOut,
   updateProfile,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  getFirestore,
-  collection as firestoreCollection,
-  doc as firestoreDoc,
-  addDoc as firestoreAddDoc,
-  setDoc as firestoreSetDoc,
-  updateDoc as firestoreUpdateDoc,
-  deleteDoc as firestoreDeleteDoc,
-  getDocs,
-  query as firestoreQuery,
-  where as firestoreWhere,
-  onSnapshot as firestoreOnSnapshot,
-  serverTimestamp,
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCJRjZBtMHqJw2zdQXJ6D8FK95S02s4UbA",
-  authDomain: "pocket-wise-9b0b1.firebaseapp.com",
-  projectId: "pocket-wise-9b0b1",
-  storageBucket: "pocket-wise-9b0b1.firebasestorage.app",
-  messagingSenderId: "696020964709",
-  appId: "1:696020964709:web:fee5ae7ad9b6cea71d7d8c",
-  measurementId: "G-M4M5PQH5F4"
-};
-
-let app, auth, db, services = null;
+let services = null;
 
 export const startFirebase = async () => {
-  console.log("🔵 [Firebase] initializing on the client...");
-  app = initializeApp(firebaseConfig);
-  auth = getAuth(app);
-  db = getFirestore(app);
+  console.log("🔵 [Firebase] جاري تحميل الإعدادات...");
+  const response = await fetch("/api/config", { credentials: "same-origin" });
+  if (!response.ok) throw new Error("فشل تحميل إعدادات Firebase");
+  const { firebase } = await response.json();
+  console.log("✅ [Firebase] تم استلام الإعدادات");
 
+  const app = initializeApp(firebase);
+  const auth = getAuth(app);
   await setPersistence(auth, browserLocalPersistence);
-  console.log("✅ [Firebase] ready to go");
-  services = { auth, db };
+  console.log("✅ [Firebase] تم تهيئة المصادقة");
+
+  services = { auth };
   return services;
 };
 
 export const firebase = () => {
-  if (!services) throw new Error("Firebase hasn't been initialized yet — call startFirebase() first.");
+  if (!services) throw new Error("Firebase لم يتم تهيئته بعد");
   return services;
 };
 
-export const collection = (db, name) => ({ path: { segments: [, name] } });
-export const doc = (db, colName, id) => ({ path: { segments: [, colName, id] } });
-export const query = (ref, ...conditions) => ref;
-export const where = (field, operator, value) => ({ field, operator, value });
+async function proxyRequest(action, collection, data = null, docId = null) {
+  console.log(`🔵 [proxyRequest] بدء ${action} على ${collection}`, { data, docId });
+
+  const user = services?.auth?.currentUser;
+  if (!user) {
+    console.error("❌ [proxyRequest] لا يوجد مستخدم مسجل الدخول");
+    throw new Error("يجب تسجيل الدخول");
+  }
+
+  const token = await user.getIdToken();
+  console.log("🔵 [proxyRequest] التوكن:", token.substring(0, 20) + "...");
+
+  const body = JSON.stringify({ action, collection, data, docId });
+  console.log("🔵 [proxyRequest] إرسال الطلب إلى /api/firestore");
+
+  try {
+    const response = await fetch("/api/firestore", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body,
+    });
+
+    const result = await response.json();
+    console.log(`🔵 [proxyRequest] استجابة ${response.status}:`, result);
+
+    if (!response.ok) {
+      console.error("❌ [proxyRequest] فشل الطلب:", result.error || "خطأ غير معروف");
+      throw new Error(result.error || "فشل الطلب");
+    }
+
+    console.log("✅ [proxyRequest] نجاح");
+    return result;
+  } catch (error) {
+    console.error("❌ [proxyRequest] استثناء:", error.message);
+    throw error;
+  }
+}
 
 export const addDoc = async (collectionRef, data) => {
   const colName = collectionRef?.path?.segments?.[1] || "unknown";
-  const colRef = firestoreCollection(db, colName);
-  const docRef = await firestoreAddDoc(colRef, data);
-  return { id: docRef.id };
+  console.log(`🔵 [addDoc] إضافة إلى ${colName}`, data);
+  return await proxyRequest("add", colName, data);
 };
 
-export const setDoc = async (docRef, data, options) => {
+export const setDoc = async (docRef, data) => {
   const path = docRef?.path?.segments || [];
   const colName = path[1] || "unknown";
   const docId = path[2] || null;
-  if (!docId) throw new Error("Missing document id — can't write without one.");
-  const ref = firestoreDoc(db, colName, docId);
-  await firestoreSetDoc(ref, data, options || { merge: true });
-  return { success: true };
+  if (!docId) throw new Error("معرف المستند غير موجود");
+  return await proxyRequest("set", colName, data, docId);
 };
 
 export const updateDoc = async (docRef, data) => {
   const path = docRef?.path?.segments || [];
   const colName = path[1] || "unknown";
   const docId = path[2] || null;
-  if (!docId) throw new Error("Missing document id — can't update without one.");
-  const ref = firestoreDoc(db, colName, docId);
-  await firestoreUpdateDoc(ref, data);
-  return { success: true };
+  if (!docId) throw new Error("معرف المستند غير موجود");
+  return await proxyRequest("update", colName, data, docId);
 };
 
 export const deleteDoc = async (docRef) => {
   const path = docRef?.path?.segments || [];
   const colName = path[1] || "unknown";
   const docId = path[2] || null;
-  if (!docId) throw new Error("Missing document id — can't delete without one.");
-  const ref = firestoreDoc(db, colName, docId);
-  await firestoreDeleteDoc(ref);
-  return { success: true };
+  if (!docId) throw new Error("معرف المستند غير موجود");
+  return await proxyRequest("delete", colName, null, docId);
 };
 
-export const onSnapshot = (queryRef, callback, errorCallback) => {
+export const onSnapshot = (queryRef, callback) => {
   const colName = queryRef?.path?.segments?.[1] || "unknown";
-  const user = auth?.currentUser;
-
-  if (!user) {
-    console.warn("⚠️ onSnapshot called with no user, returning no-op");
-    return () => {};
-  }
-
-  const q = firestoreQuery(firestoreCollection(db, colName), firestoreWhere("uid", "==", user.uid));
-  return firestoreOnSnapshot(q, (snapshot) => {
-    const docs = snapshot.docs.map((docSnap) => {
-      const data = docSnap.data();
-      return {
-        id: docSnap.id,
-        data: () => data,
-        ...data,
-      };
-    });
-    callback({ docs });
-  }, errorCallback);
+  const fetchData = async () => {
+    try {
+      const result = await proxyRequest("get", colName);
+      callback({
+        docs: result.map((item) => ({
+          id: item.id,
+          data: () => item,
+          ...item,
+        })),
+      });
+    } catch (error) {
+      console.error("[Polling] خطأ:", error);
+    }
+  };
+  fetchData();
+  const interval = setInterval(fetchData, 3000);
+  return () => clearInterval(interval);
 };
+
+export const collection = (db, name) => ({ path: { segments: [, name] } });
+export const doc = (db, colName, id) => ({ path: { segments: [, colName, id] } });
+export const query = (ref, ...conditions) => ref;
+export const where = (field, operator, value) => ({ field, operator, value });
+export const serverTimestamp = () => new Date().toISOString();
 
 export {
   onAuthStateChanged,
@@ -130,6 +143,4 @@ export {
   sendPasswordResetEmail,
   signOut,
   updateProfile,
-  getDocs,
-  serverTimestamp,
 };

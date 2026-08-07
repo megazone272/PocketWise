@@ -1,0 +1,16 @@
+{
+  "name": "PocketWise",
+  "short_name": "PocketWise",
+  "description": "AI-powered personal finance dashboard",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06101f",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='24' fill='%234f46e5'/%3E%3Cpath d='M32 72c0-22 18-40 40-40s40 18 40 40v14H32z' fill='white'/%3E%3Ccircle cx='64' cy='54' r='12' fill='%238b5cf6'/%3E%3C/svg%3E",
+      "sizes": "128x128",
+      "type": "image/svg+xml"
+    }
+  ]
+}

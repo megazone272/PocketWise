@@ -7,9 +7,6 @@
     <title>PocketWise | AI Finance Dashboard</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body data-theme="dark" data-lang="en">
     <div class="app-shell auth-shell" id="authView">
@@ -65,31 +62,11 @@
         </div>
       </aside>
 
-      <!-- Global Command Palette -->
-      <div id="commandPalette" class="command-palette-overlay hidden" aria-hidden="true">
-        <div class="command-palette">
-          <div class="cmd-search-wrap">
-            <span>⌕</span>
-            <input type="text" id="cmdSearchInput" placeholder="Search transactions, goals, ask AI..." autocomplete="off" />
-            <kbd>ESC</kbd>
-          </div>
-          <div class="cmd-results" id="cmdResults">
-            <div class="cmd-group">
-              <span class="cmd-group-title">Suggestions</span>
-              <button class="cmd-item" data-action="add-transaction"><span>+</span> Add Transaction</button>
-              <button class="cmd-item" data-action="ask-ai"><span>✦</span> Ask AI Assistant</button>
-              <button class="cmd-item" data-action="view-report"><span>📄</span> View Monthly Report</button>
-            </div>
-            <div class="cmd-group" id="cmdDynamicResults"></div>
-          </div>
-        </div>
-      </div>
-
       <main class="main-content">
         <header class="topbar">
           <label class="search-wrap" aria-label="Search">
             <span>⌕</span>
-            <input type="text" id="globalSearchInput" placeholder="Search insights, bills, reports" data-i18n-placeholder="searchPlaceholder" />
+            <input type="text" id="globalSearchInput" placeholder="Search insights, bills, reports" />
           </label>
 
           <div class="topbar-actions">
@@ -99,7 +76,7 @@
               <span class="dot"></span>
             </button>
             <div class="profile">
-              <div class="avatar" id="profileAvatar">AN</div>
+              <div class="avatar">AN</div>
               <div>
                 <strong id="profileName">Your account</strong>
                 <button id="logoutBtn" class="ghost-btn small-btn" type="button">Log out</button>
@@ -108,15 +85,16 @@
           </div>
         </header>
 
+
         <section class="page-section active" id="dashboardSection">
           <div class="hero-panel">
             <div class="hero-copy">
-              <p class="eyebrow" data-i18n="smartOverview">Smart financial overview</p>
-              <h1 data-i18n="yourMoneySimplified">Your money, simplified.</h1>
-              <p data-i18n="trackEveryMove">Track every move, uncover patterns, and let AI guide your next best action.</p>
+              <p class="eyebrow">Smart financial overview</p>
+              <h1>Your money, simplified.</h1>
+              <p>Track every move, uncover patterns, and let AI guide your next best action.</p>
               <div class="hero-actions">
-                <button class="primary-btn" id="addExpenseBtn" data-i18n="addExpense">+ Add Expense</button>
-                <button class="ghost-btn" id="viewAnalyticsBtn" type="button" data-i18n="seeAnalytics">See analytics</button>
+                <button class="primary-btn" id="addExpenseBtn">+ Add Expense</button>
+                <button class="ghost-btn" id="viewAnalyticsBtn" type="button">See analytics</button>
               </div>
             </div>
             <div class="hero-badge">
@@ -128,79 +106,46 @@
 
           <div class="stats-grid">
             <article class="card stat-card balance-card">
-              <div class="card-head"><p data-i18n="balance">Balance</p><span class="trend up">+8.2%</span></div>
+              <div class="card-head"><p>Balance</p><span class="trend up">+8.2%</span></div>
               <h3 id="balanceValue">$0.00</h3>
-              <p class="muted" data-i18n="acrossAllAccounts">Across all accounts</p>
+              <p class="muted">Across all accounts</p>
             </article>
             <article class="card stat-card">
-              <div class="card-head"><p data-i18n="incomeLabel">Income</p><span class="trend up">+4.6%</span></div>
+              <div class="card-head"><p>Income</p><span class="trend up">+4.6%</span></div>
               <h3 id="monthlyIncomeValue">$0.00</h3>
-              <p class="muted" data-i18n="monthlyIncoming">Monthly incoming</p>
+              <p class="muted">Monthly incoming</p>
             </article>
             <article class="card stat-card">
-              <div class="card-head"><p data-i18n="expensesLabel">Expenses</p><span class="trend down">-2.1%</span></div>
+              <div class="card-head"><p>Expenses</p><span class="trend down">-2.1%</span></div>
               <h3 id="monthlyExpenseValue">$0.00</h3>
-              <p class="muted" data-i18n="trackedThisMonth">Tracked this month</p>
+              <p class="muted">Tracked this month</p>
             </article>
             <article class="card stat-card">
-              <div class="card-head"><p data-i18n="savingsLabel">Savings</p><span class="trend up">+12%</span></div>
+              <div class="card-head"><p>Savings</p><span class="trend up">+12%</span></div>
               <h3 id="monthlySavingsValue">$0.00</h3>
-              <p class="muted" data-i18n="emergencyFund">Emergency fund</p>
+              <p class="muted">Emergency fund</p>
             </article>
-          </div>
-
-          <!-- Financial Health Score -->
-          <div class="card health-score-panel">
-            <div class="panel-header">
-              <div>
-                <h3 data-i18n="financialHealth">Financial Health</h3>
-                <p data-i18n="healthDescription">Based on your savings rate, budget adherence, and net flow.</p>
-              </div>
-              <div class="health-score-wrap">
-                <div class="health-score-circle">
-                  <svg viewBox="0 0 36 36" class="circular-chart">
-                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="circle" id="healthScoreBar" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <text x="18" y="20.35" class="percentage" id="healthScoreText">0</text>
-                  </svg>
-                </div>
-                <div class="health-score-info">
-                  <span id="healthScoreLabel" class="health-label">Needs Work</span>
-                  <p id="healthScoreTip" class="health-tip">Track your expenses to build a score.</p>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="card dashboard-summary-panel">
             <div class="panel-header">
-              <div><h3 data-i18n="monthlySummary">Monthly Summary</h3><p data-i18n="liveMonthlyView">Live monthly view with action-oriented insight</p></div>
+              <div><h3>Monthly Summary</h3><p>Live monthly view with action-oriented insight</p></div>
             </div>
             <div class="dashboard-summary-grid">
-              <div class="summary-card accent-card"><p data-i18n="netFlow">Net Flow</p><h3 id="summaryNetValue">$0.00</h3><span id="summaryTrendValue" class="trend up" data-i18n="positiveFlow">Steady</span></div>
-              <div class="summary-card"><p data-i18n="nextBill">Next Bill</p><h3 id="summaryNextBillValue">$0.00</h3><span id="summaryNextBillDate" data-i18n="noUpcomingBills">—</span></div>
-              <div class="summary-card"><p data-i18n="goalProgress">Goal Progress</p><h3 id="summaryGoalValue">0%</h3><span id="summaryGoalLabel" data-i18n="noActiveGoal">No active goal</span></div>
+              <div class="summary-card accent-card"><p>Net Flow</p><h3 id="summaryNetValue">$0.00</h3><span id="summaryTrendValue" class="trend up">Steady</span></div>
+              <div class="summary-card"><p>Next Bill</p><h3 id="summaryNextBillValue">$0.00</h3><span id="summaryNextBillDate">—</span></div>
+              <div class="summary-card"><p>Goal Progress</p><h3 id="summaryGoalValue">0%</h3><span id="summaryGoalLabel">No active goal</span></div>
             </div>
             <div class="dashboard-widgets">
               <div class="card nested-card">
-                <div class="panel-header"><div><h3 data-i18n="timelineActivity">Timeline</h3><p data-i18n="lastTransactions">Last transactions in your feed</p></div></div>
-                <div id="recentActivityList" class="timeline-list"></div>
+                <div class="panel-header"><div><h3>Recent Activity</h3><p>Last transactions and updates</p></div></div>
+                <ul id="recentActivityList" class="activity-list"></ul>
               </div>
               <div class="card nested-card">
-                <div class="panel-header"><div><h3 data-i18n="savingsGoal">Savings Goal</h3><p data-i18n="progressTowardTarget">Progress toward your target</p></div></div>
-                <div class="goal-circular-wrap">
-                  <svg class="circular-chart" viewBox="0 0 36 36">
-                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="circle" id="goalCircularBar" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <text x="18" y="20.35" class="percentage" id="goalProgressText">0%</text>
-                  </svg>
-                </div>
-                <div class="goal-progress-meta" style="text-align: center; margin-top: 10px;">
-                  <strong id="savingsGoalTitle">Emergency fund</strong>
-                  <div class="goal-meta-row" style="justify-content: center; gap: 10px; margin-top: 5px;">
-                    <span id="goalCurrentValue">$0.00</span> / <span id="goalTargetValue">$0.00</span>
-                  </div>
-                </div>
+                <div class="panel-header"><div><h3>Savings Goal</h3><p>Progress toward your target</p></div></div>
+                <div class="goal-progress-track"><div id="goalProgressBar" class="goal-progress-bar"></div></div>
+                <div class="goal-progress-meta"><strong id="savingsGoalTitle">Emergency fund</strong><span id="goalProgressText">0%</span></div>
+                <div class="goal-meta-row"><span id="goalCurrentValue">$0.00</span><span id="goalTargetValue">$0.00</span></div>
               </div>
             </div>
           </div>
@@ -209,31 +154,31 @@
         <section class="page-section" id="transactionsSection">
           <div class="card transactions-panel">
             <div class="panel-header">
-              <div><h3 data-i18n="transactions">Transactions</h3><p data-i18n="manageIncomeExpenses">Manage income, expenses, and categories</p></div>
-              <button class="primary-btn small-btn" id="openModalBtn" data-i18n="addTransaction">+ Add Transaction</button>
+              <div><h3>Transactions</h3><p>Manage income, expenses, and categories</p></div>
+              <button class="primary-btn small-btn" id="openModalBtn">+ Add Transaction</button>
             </div>
             <div class="transaction-toolbar">
               <label class="search-wrap compact-search" aria-label="Search transactions">
                 <span>⌕</span>
-                <input type="text" id="searchInput" placeholder="Search transactions" data-i18n-placeholder="searchTransactions" />
+                <input type="text" id="searchInput" placeholder="Search transactions" />
               </label>
               <select id="typeFilter" class="filter-select">
-                <option value="all" data-i18n="allTypes">All Types</option>
-                <option value="income" data-i18n="income">Income</option>
-                <option value="expense" data-i18n="expenses">Expense</option>
+                <option value="all">All Types</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
               </select>
               <select id="categoryFilter" class="filter-select">
-                <option value="all" data-i18n="allCategories">All Categories</option>
+                <option value="all">All Categories</option>
               </select>
               <select id="searchScopeSelect" class="filter-select">
-                <option value="transactions" data-i18n="transactions">Transactions</option>
-                <option value="all" data-i18n="allContent">All Content</option>
+                <option value="transactions">Transactions</option>
+                <option value="all">All Content</option>
               </select>
               <select id="sortSelect" class="filter-select">
-                <option value="date-desc" data-i18n="newestFirst">Newest first</option>
-                <option value="date-asc" data-i18n="oldestFirst">Oldest first</option>
-                <option value="amount-desc" data-i18n="highestAmount">Highest amount</option>
-                <option value="amount-asc" data-i18n="lowestAmount">Lowest amount</option>
+                <option value="date-desc">Newest first</option>
+                <option value="date-asc">Oldest first</option>
+                <option value="amount-desc">Highest amount</option>
+                <option value="amount-asc">Lowest amount</option>
               </select>
               <select id="pageSizeSelect" class="filter-select">
                 <option value="5">5 per page</option>
@@ -242,16 +187,16 @@
               </select>
             </div>
             <div class="import-export-row">
-              <button class="ghost-btn small-btn" id="exportBtn" data-i18n="exportJSON">Export JSON</button>
-              <button class="ghost-btn small-btn" id="exportCsvBtn" data-i18n="exportCSV">Export CSV</button>
-              <button class="ghost-btn small-btn" id="importBtn" data-i18n="importJSON">Import JSON</button>
+              <button class="ghost-btn small-btn" id="exportBtn">Export JSON</button>
+              <button class="ghost-btn small-btn" id="exportCsvBtn">Export CSV</button>
+              <button class="ghost-btn small-btn" id="importBtn">Import JSON</button>
               <input type="file" id="importInput" accept="application/json" hidden />
             </div>
             <div id="transactionsList" class="transactions-list"></div>
             <div class="pagination-row">
-              <button class="ghost-btn small-btn" id="prevPageBtn" type="button" data-i18n="previous">Previous</button>
+              <button class="ghost-btn small-btn" id="prevPageBtn" type="button">Previous</button>
               <span id="pageInfoText">Page 1</span>
-              <button class="ghost-btn small-btn" id="nextPageBtn" type="button" data-i18n="next">Next</button>
+              <button class="ghost-btn small-btn" id="nextPageBtn" type="button">Next</button>
             </div>
           </div>
         </section>
@@ -259,19 +204,19 @@
         <section class="page-section" id="budgetsSection">
           <div class="card budget-panel">
             <div class="panel-header">
-              <div><h3 data-i18n="budgetPlanner">Budget Planner</h3><p data-i18n="trackMonthlySpending">Track your monthly spending goals</p></div>
+              <div><h3>Budget Planner</h3><p>Track your monthly spending goals</p></div>
               <div class="budget-input-wrap">
                 <label class="budget-inline">
-                  <span data-i18n="monthlyBudget">Monthly Budget</span>
+                  <span>Monthly Budget</span>
                   <input type="number" id="budgetInput" min="0" step="100" />
                 </label>
-                <button class="primary-btn small-btn" id="saveBudgetBtn" data-i18n="save">Save</button>
+                <button class="primary-btn small-btn" id="saveBudgetBtn">Save</button>
               </div>
             </div>
             <div class="budget-summary-grid">
-              <div class="budget-card accent-card"><p data-i18n="monthlyBudget">Monthly Budget</p><h3 id="monthlyBudgetValue">$0.00</h3></div>
-              <div class="budget-card"><p data-i18n="spent">Spent</p><h3 id="spentBudgetValue">$0.00</h3></div>
-              <div class="budget-card"><p data-i18n="remaining">Remaining</p><h3 id="remainingBudgetValue">$0.00</h3></div>
+              <div class="budget-card accent-card"><p>Monthly Budget</p><h3 id="monthlyBudgetValue">$0.00</h3></div>
+              <div class="budget-card"><p>Spent</p><h3 id="spentBudgetValue">$0.00</h3></div>
+              <div class="budget-card"><p>Remaining</p><h3 id="remainingBudgetValue">$0.00</h3></div>
             </div>
             <div class="budget-progress-wrap">
               <div class="budget-progress-track"><div id="budgetProgressBar" class="budget-progress-bar"></div></div>
@@ -284,21 +229,21 @@
         <section class="page-section" id="analyticsSection">
           <div class="card analytics-panel">
             <div class="panel-header">
-              <div><h3 data-i18n="analyticsTitle">Analytics & Insights</h3><p data-i18n="spendPatterns">Spend patterns, category trends, and monthly outlook</p></div>
+              <div><h3 data-i18n="analyticsTitle">Analytics & Insights</h3><p>Spend patterns, category trends, and monthly outlook</p></div>
             </div>
             <div class="analytics-grid">
-              <div class="analytics-card"><p data-i18n="expensesLabel">Expenses</p><h3 id="analyticsExpenseValue">$0.00</h3></div>
-              <div class="analytics-card"><p data-i18n="incomeLabel">Income</p><h3 id="analyticsIncomeValue">$0.00</h3></div>
-              <div class="analytics-card"><p data-i18n="savingsLabel">Savings</p><h3 id="analyticsSavingsValue">$0.00</h3></div>
+              <div class="analytics-card"><p data-i18n="expenses">Expenses</p><h3 id="analyticsExpenseValue">$0.00</h3></div>
+              <div class="analytics-card"><p data-i18n="income">Income</p><h3 id="analyticsIncomeValue">$0.00</h3></div>
+              <div class="analytics-card"><p data-i18n="savings">Savings</p><h3 id="analyticsSavingsValue">$0.00</h3></div>
             </div>
           </div>
           <div class="content-grid analytics-grid-section">
             <div class="card panel">
-              <div class="panel-header"><div><h3 data-i18n="monthlyTrend">Monthly Trend</h3><p data-i18n="incomeVsSpending">Income versus spending over time</p></div></div>
+              <div class="panel-header"><div><h3>Monthly Trend</h3><p>Income versus spending over time</p></div></div>
               <canvas id="lineChart"></canvas>
             </div>
             <div class="card panel">
-              <div class="panel-header"><div><h3 data-i18n="categoryBreakdown">Category Breakdown</h3><p data-i18n="whereDiscretionary">Where your discretionary budget is going</p></div></div>
+              <div class="panel-header"><div><h3>Category Breakdown</h3><p>Where your discretionary budget is going</p></div></div>
               <canvas id="categoryChart"></canvas>
             </div>
           </div>
@@ -307,27 +252,26 @@
         <section class="page-section" id="assistantSection">
           <div class="card assistant-panel">
             <div class="panel-header">
-              <div><h3 data-i18n="aiAssistant">AI Financial Assistant</h3><p data-i18n="askAnything">Ask anything about savings, goals, and spending habits</p></div>
-              <span class="assistant-status" data-i18n="geminiReady">● Gemini-ready</span>
+              <div><h3>AI Financial Assistant</h3><p>Ask anything about savings, goals, and spending habits</p></div>
+              <span class="assistant-status">● Gemini-ready</span>
             </div>
             <div class="assistant-chat" id="assistantChat" aria-live="polite">
               <div class="assistant-message assistant">
                 <div class="assistant-avatar">AI</div>
                 <div class="message-bubble">
                   <strong>PocketWise AI</strong>
-                  <p data-i18n="hiIHelp">Hi! I can help you review your spending, suggest savings ideas, and plan your next move.</p>
+                  <p>Hi! I can help you review your spending, suggest savings ideas, and plan your next move.</p>
                 </div>
               </div>
             </div>
             <div class="assistant-suggestions" aria-label="Assistant suggestions">
-              <button class="suggestion-chip" data-text="Help me cut my monthly spending by 15%" data-i18n="cutSpending">Cut spending</button>
-              <button class="suggestion-chip" data-text="How can I improve my savings this month?" data-i18n="boostSavings">Boost savings</button>
-              <button class="suggestion-chip" data-text="Summarize my recent transactions" data-i18n="summarizeActivity">Summarize activity</button>
+              <button class="suggestion-chip" data-text="Help me cut my monthly spending by 15%">Cut spending</button>
+              <button class="suggestion-chip" data-text="How can I improve my savings this month?">Boost savings</button>
+              <button class="suggestion-chip" data-text="Summarize my recent transactions">Summarize activity</button>
             </div>
             <form class="assistant-input-row" id="assistantForm">
-              <button type="button" class="icon-button voice-btn" id="voiceInputBtn" aria-label="Voice input">🎤</button>
-              <input type="text" id="assistantInput" placeholder="Ask the AI assistant..." aria-label="Ask the AI assistant" autocomplete="off" data-i18n-placeholder="askAssistant" />
-              <button class="primary-btn" type="submit" data-i18n="send">Send</button>
+              <input type="text" id="assistantInput" placeholder="Ask the AI assistant..." aria-label="Ask the AI assistant" autocomplete="off" />
+              <button class="primary-btn" type="submit">Send</button>
             </form>
           </div>
         </section>
@@ -336,13 +280,13 @@
           <div class="content-grid notifications-calendar-section">
             <div class="card panel">
               <div class="panel-header">
-                <div><h3 data-i18n="notificationsCenter">Notifications Center</h3><p data-i18n="importantReminders">Important reminders and nudges</p></div>
+                <div><h3>Notifications Center</h3><p>Important reminders and nudges</p></div>
               </div>
               <ul id="notificationsList" class="stack-list"></ul>
             </div>
             <div class="card panel">
               <div class="panel-header">
-                <div><h3 data-i18n="calendarView">Calendar View</h3><p data-i18n="upcomingBills">Upcoming bills and transaction dates</p></div>
+                <div><h3>Calendar View</h3><p>Upcoming bills and transaction dates</p></div>
               </div>
               <div id="calendarGrid" class="calendar-grid"></div>
             </div>
@@ -352,7 +296,7 @@
         <section class="page-section" id="settingsSection">
           <div class="card settings-panel">
             <div class="panel-header">
-              <div><h3 data-i18n="settingsTitle">Settings</h3><p data-i18n="customizeExperience">Customize your experience</p></div>
+              <div><h3 data-i18n="settingsTitle">Settings</h3><p>Customize your experience</p></div>
             </div>
             <div class="settings-grid">
               <label class="settings-item">
@@ -362,24 +306,15 @@
                   <option value="light">Light</option>
                 </select>
               </label>
-              <label class="settings-item">
-                <span data-i18n="language">Language</span>
-                <select id="languageSelect">
-                  <option value="en">English</option>
-                  <option value="ar">العربية</option>
-                  <option value="es">Español</option>
-                </select>
-              </label>
               <label class="settings-item toggle-item">
-                <span data-i18n="notificationsLabel">Notifications</span>
+                <span data-i18n="notificationsToggle">Notifications</span>
                 <input type="checkbox" id="notificationsToggle" checked />
               </label>
               <button class="ghost-btn" id="clearDataBtn" data-i18n="clearData">Clear Data</button>
             </div>
           </div>
         </section>
-        
-        <button class="fab" id="fabAddBtn" aria-label="Add Transaction">+</button>
+
       </main>
     </div>
 
@@ -394,32 +329,23 @@
         </div>
         <form id="transactionForm" novalidate>
           <input type="hidden" id="transactionId" />
-          
-          <div class="receipt-scanner-wrap">
-            <button type="button" class="ghost-btn receipt-btn" id="scanReceiptBtn">
-              <span>📷</span> Scan Receipt with AI
-            </button>
-            <input type="file" id="receiptImageInput" accept="image/*,application/pdf" hidden />
-            <div id="receiptScanStatus" class="scan-status hidden">Processing...</div>
-          </div>
-
           <div class="form-grid">
             <label>
-              <span data-i18n="type">Type</span>
+              Type
               <select name="type" id="typeInput" required>
-                <option value="expense" data-i18n="expenses">Expense</option>
-                <option value="income" data-i18n="income">Income</option>
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
               </select>
             </label>
             <label>
-              <span data-i18n="date">Date</span>
+              Date
               <input type="date" name="date" id="dateInput" required />
             </label>
             <label>
-              <span data-i18n="category">Category</span>
+              Category
               <div class="custom-select-wrapper" id="categoryWrapper">
                 <div class="custom-select-trigger" id="categoryTrigger">
-                  <span id="categoryDisplay" data-i18n="selectCategory">Select Category</span>
+                  <span id="categoryDisplay">Select Category</span>
                   <span class="arrow">▼</span>
                 </div>
                 <ul class="custom-select-options" id="categoryOptions"></ul>
@@ -427,38 +353,37 @@
               <input type="hidden" id="categoryInput" value="" />
             </label>
             <label>
-              <span data-i18n="amount">Amount</span>
+              Amount
               <input type="number" name="amount" id="amountInput" min="0" step="any" placeholder="0.00" required />
             </label>
             <label>
-              <span data-i18n="description">Description</span>
+              Description
               <textarea name="description" id="descriptionInput" placeholder="What was this for?" required></textarea>
             </label>
             <label class="checkbox-inline">
               <input type="checkbox" id="recurringInput" />
-              <span data-i18n="recurring">Recurring transaction</span>
+              <span>Recurring transaction</span>
             </label>
             <label>
-              <span data-i18n="frequency">Frequency</span>
+              Frequency
               <select id="frequencyInput">
-                <option value="monthly" data-i18n="monthly">Monthly</option>
-                <option value="weekly" data-i18n="weekly">Weekly</option>
-                <option value="yearly" data-i18n="yearly">Yearly</option>
+                <option value="monthly">Monthly</option>
+                <option value="weekly">Weekly</option>
+                <option value="yearly">Yearly</option>
               </select>
             </label>
           </div>
           <p id="formError" class="form-error" aria-live="polite"></p>
           <div class="modal-actions">
-            <button type="button" class="ghost-btn" id="cancelModalBtn" data-i18n="cancel">Cancel</button>
-            <button type="button" class="primary-btn" data-i18n="saveTransaction">Save Transaction</button>
+            <button type="button" class="ghost-btn" id="cancelModalBtn">Cancel</button>
+            <button type="button" class="primary-btn">Save Transaction</button>
           </div>
         </form>
+      </div>
     </div>
 
-    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script type="module" src="script.js"></script>
+    <script type="module" src="settings.js"></script>
   </body>
 </html>
