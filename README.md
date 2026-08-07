@@ -1,176 +1,297 @@
+# 💰 PocketWise
+<div align="center">
+
+# 💜 PocketWise Premium
+### AI-Powered Personal Finance Platform
+Get assistance with finances by using Artificial Intelligence smartly.
+Through an attractive premium dashboard developed on modern web technologies and powered by Al one can keep track of his or hers income, expenses, bills, savings goals and budgets easily.
+
+<br/>
+
+<img src="screenshots/02_dashboard_dark.png" alt="PocketWise Dashboard" width="100%" />
+
+</div>
+
+# ✨ Features
+## 🤖 AI Financial Assistant
+- financial assistant powered by Al
+- analysis of spending patterns at a higher level
+- recommendations about the Budget
+- Saving ideas
+- Financial insights
+- Overview of monthly spends
+- Detailed analysis of the transactions
+- Dual (Arabic & English)language support
+- RTL support
+- Responses according to the situation/ context
+---
+## 💳 Managing Transactions & Budget
+- Entering transactions
+- Modifying the already-made transaction
+- Removing a transaction
+- Listing & Managing of Categories
+- Keeping track of your Income
+- Keeping track of your Expenses
+- Verifying a transaction
+- Searching & Filtering
+---
+## 📊 Smart Dashboard
+- Overview of the state of finances
+- Breakdown of the Income
+- Breakdown of the Expenses
+- Tracking the Budget
+- Using Charts
+- Spending data exploration
+- Overview of the Cash Flow
+- Taking the next steps
+- Easily adaptable Layout/Interface/ Dashboard
+---
+## 🎯 Goals
+- Set Your Savings Goals
+- Checking your goal Progress
+- Visual representations or indicators of a goal's progress
+- Managing your Goals
+---
+## 🧾 Bills
+- Manage your Bills
+- Track due dates
+- Track upcoming bills
+- Keeping track of Bill Payments/Receivables
+---
+## 🎨 Premium User Interface
+- The Design Based Upon Glassmorphism
+- Updated Look Of The Dashboard
+- Eye catching Cards
+- The Design that is Flexible for All the Screen Sizes
+- The Dark Theme
+- The Light
+- Keyboard shortcut Palette
+- The Smoothly Transitioning Interface
+- The Toast Style Messaging
+- A Mobile-friendly Interface
+---
+## 🔐 Authentication
+- Use of Firebase Authentication
+- Email & Password Sign-In
+- Sign-in with Google
+- Reset of the Password
+- The feature where one stays logged in even with closing the browser
+- Securing the User Sessions
+---
+## ☁ Backend
+- Node.js
+- Using Firebase Firestore
+- REST API Design
+- The Groq AI Implementation
+---
+# 🛠 Development Tools
+### Front-end Development
+- HTML5
+- CSS 3.0
+- The use of JavaScript(ECMASCRIPT 6)
+### Backend Development
+- Node.js
+- firebase
+- Cloud Firestore
+- Groq AI API
+### The libraries
+- chart.js
+- firebase SDK
+---
+# 📁 Project Organization
+```
 PocketWise
-
-PocketWise is an app that users can download and install for managing their daily income and expenses at one place. They will get access to easy-to-use functionality for recording transactions, checking expenses, and seeing financial charts through interactive visuals all of this can be used in the app with your data safely saved through the use of Firebase services.
-
-The app has been made as a Progressive Web App so that besides being on the desktop, it also be used by phone users.
-
-Features
-
-
-Firebase Authentication for User Login
-
-
-
-Manage, view and delete your transactions
-
-
-
-Away from expenses: Income Tracking
-
-
-
-Making different categories of transactions
-
-
-
-Interactive visuals and financial highlights
-
-
-
-Work on desktop and mobile with a responsive layout
-
-
-
-Enable you to work in offline and also when you come online again you continue
-
-Technologies Used
-
-
-
-
-
-HTML5
-
-
-
-JavaScript (ES6)
-
-
-
-Chart.js
-
-Firebase Technologies
-
-
-
-
-
-Firebase Authentication
-
-
-
-Cloud Firestore
-
-
-
-
-
-Audaciously progressive web App (PWA)
-
-Project Directory
-
-PocketWise/ │ ├── Assets/ ├── CSS/ ├── JS/ ├── firebase.js ├── chart.js ├── manifest.webmanifest ├── sw.js ├── index.html ├── README.md └──...
-
-Instructions to Setup
-
-Copy the git repository
-
-git clone https://github.com/your-username/PocketWise.git
-
-The next step is to open the project you have cloned on your computer
-
+│
+├── index.html
+├── style.css
+├── script.js
+├── server.js
+├── firebase.js
+├── settings.js
+├── transactions.js
+├── translations.js
+├── chart.js
+├── sw.js
+├── manifest.webmanifest
+├── firestore.rules
+├── package.json
+├── package-lock.json
+├── .env.example
+├── test/
+└── README.md
+```
+---
+# 📲 Deploying
+To obtain a local copy please perform git clone
+```bash
+git clone https://github.com/megazone272/PocketWise.git
+```
+Switch to PocketWise
+```bash
 cd PocketWise
+```
+Install the dependencies
+```bash
+npm install
+```
+Creating your environment file
+Copy the example environment file and use it as a starting point for your own environmental setup:
+```bash
+cp .env.example .env
+```
+Insert your Firebase and Groq API keys in the appropriate fields.
+Start your application using the following command:
+```bash
+npm start
+```
+To open the browser you can follow these steps:
+http://localhost:3007
 
-The firebase settings should then be done
+---
+🤖 PocketWise AI
+PocketWise AI can help its users in several ways:
+Analyzing their financial patterns and behaviors
+Telling a narrative of their financial activity
+Helping them to save
+Planning their budget
+Identifying trends in their financial activities
+Offering help about financial stuff they may not have known anything about yet
+Giving them financial advice which is customized to them
 
-Create your Firebase app and change the Firebase setup details in firebase.js to those of your Firebase account.
+----
+🔥 Firebase Services
+Among the features from Firebase that Powered Money uses, there are:
+Firebase Authentication
+Cloud Firestore
+Firestore Security Rules
 
-Launch the app
+----
+🌍 Supported Languages
+You can use Powered Money in:
+🇺🇸 English
+🇪🇬 العربية
 
-Open the HTML file of the index in your favorite browser. If you are running the app from a dev environment then it is a good idea to use the localhost server.
+-----
+📱 Responsive Design
+This is powered to work best on different devices including:
+Desktop
+Big Computer
+Tablet
+Mobile phone
 
-You may use the command below for Node:
+----
+🔒 Security
+Below is a list of the security techniques used by Powered Money:
+Firebase Authentication
+Firestore Security Rules
+Encrypted REST API
+Input Validation
+Private User Data
 
-npx serve
+----
+📈 Future Plans
+The following are some of the upcoming features of Powered Money (they are all ideas, nothing is guaranteed yet!):
+"" AI-based Receipt Scanner (which will support OCR)
+""Assistant (with voice)
+""Financial wellness measure
+""AI Coach
+""Smart reminders
+""AI-based financial planning
+""Monthly reports
+""PDF Export
+""Excel Export
+""Enhanced Text search
+""Offline support (PWA)
+""Detect recurring monthly bills
+""Ability to handle different currencies
 
-The code below for Python would do:
+---
+## 📸 Screenshots
 
-python, m http.server
+<div align="center">
 
-Using PocketWise
+### 🌙 Dark & ☀️ Light Mode
+<table>
+  <tr>
+    <td width="50%" align="center"><b>Dark Mode</b></td>
+    <td width="50%" align="center"><b>Light Mode</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/02_dashboard_dark.png" width="100%" alt="Dark Mode Dashboard" /></td>
+    <td><img src="screenshots/10_dashboard_light.png" width="100%" alt="Light Mode Dashboard" /></td>
+  </tr>
+</table>
 
+### 💳 Transactions & Add Expense
+<table>
+  <tr>
+    <td width="50%" align="center"><b>Transactions List</b></td>
+    <td width="50%" align="center"><b>Add Transaction</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/03_transactions.png" width="100%" alt="Transactions" /></td>
+    <td><img src="screenshots/04_add_transaction_modal.png" width="100%" alt="Add Transaction" /></td>
+  </tr>
+</table>
 
+### 🎯 Budgets & 📈 Analytics
+<table>
+  <tr>
+    <td width="50%" align="center"><b>Budget Tracker</b></td>
+    <td width="50%" align="center"><b>Analytics Charts</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/05_budgets.png" width="100%" alt="Budgets" /></td>
+    <td><img src="screenshots/06_analytics.png" width="100%" alt="Analytics" /></td>
+  </tr>
+</table>
 
+### 🤖 AI Assistant & 📅 Bills Calendar
+<table>
+  <tr>
+    <td width="50%" align="center"><b>AI Assistant</b></td>
+    <td width="50%" align="center"><b>Bills Calendar</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/07_ai_assistant.png" width="100%" alt="AI Assistant" /></td>
+    <td><img src="screenshots/08_notifications_calendar.png" width="100%" alt="Bills Calendar" /></td>
+  </tr>
+</table>
 
+### ⚙️ Settings & 📱 Mobile View
+<table>
+  <tr>
+    <td width="50%" align="center"><b>Settings</b></td>
+    <td width="50%" align="center"><b>Mobile View</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/09_settings.png" width="100%" alt="Settings" /></td>
+    <td><img src="screenshots/11_mobile_view.png" width="100%" alt="Mobile View" /></td>
+  </tr>
+</table>
 
+### 🔐 Login Screen
+<p align="center">
+  <img src="screenshots/01_auth_page.png" width="80%" alt="Login Screen" />
+</p>
 
+</div>
 
+---
+🤝 Contributing
+We really appreciate you helping and are always happy to receive contributions from you. Please follow the steps described in the next paragraph:
+Fork your personal copy of the open source project repository, pick a unique name for a new branch, and finally send to the main repository your changes as a Pull Request.
 
+----
+👨💻 Author
+**Nour Ahmed**
+Check-out his GitHub at the following link:
+https://github.com/megazone272
 
-Open the PocketWise app on your mobile or desktop first before trying to set up an account or simply login for existing accounts.
+-----
+⭐ Support
+The author is very grateful to everyone who likes the repo and has been giving it stars. That kind of support helps in getting more users and in the creation of new features.
 
-
-
-You can now go ahead and record your income and expenses transactions.
-
-
-
-To add value in tracking, you can classify transactions into appropriate categories.
-
-
-
-You can track spending and balance your cash through this app!
-
-
-
-Use the app to look at the summaries for charts and financial activities.
-
-Photos
-
-<<<<<<< HEAD
-Nour Ahmed
-=======
-Include application screenshots in an images folder.
->>>>>>> origin/main
-
-images/ ├── home.png ├── dashboard.png ├── transactions.png
-
-Planned Development
-
-
-
-
-
-Planned Budget
-
-
-
-Save the Money you make
-
-
-
-Gather the information to create a detailed report in pdf or excel format
-
-
-
-Support several languages
-
-
-
-Reminders that go off even when the app is not in use
-
-
-
-Go into the dark mode
-
-
-
-Use recurring transactions feature
-
-Permission
-
-The main use of this code is teaching and personal purposes. You are free to take, use, change and develop the code as long as it is for non-commercial use only.
-
-Created by
-
-Nour Ahmed
+----
+### 💜 PocketWise
+### Make more money with the right decisions! This app is a product made with ❤ by combining JavaScript, Firebase and AI.
