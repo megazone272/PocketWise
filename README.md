@@ -232,7 +232,7 @@ Security techniques used by PocketWise:
 
 ---
 ## Future plans
-### We have compiled a list of the features that we are likely to bring to you (they are just ideas, none are guaranteed):
+#### We have compiled a list of the features that we are likely to bring to you (they are just ideas, none are guaranteed):
 - OCR supported Ai based receipt scanner
 - Voice assistant
 - Financial health indicator
