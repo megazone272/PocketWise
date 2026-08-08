@@ -3,7 +3,7 @@
 <div align="center">
 
 # PocketWise Premium
-### AI-Powered Personal Finance Platform
+### AI-Integrated Expense Tracking System
 Get assistance with finances by using Artificial Intelligence smartly.
 Through an attractive premium dashboard developed on modern web technologies and powered by AI one can keep track of his or hers income, expenses, bills, savings goals and budgets easily.
 
