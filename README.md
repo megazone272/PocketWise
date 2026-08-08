@@ -1,7 +1,7 @@
-# 💰 PocketWise
+#  PocketWise
 <div align="center">
 
-# 💜 PocketWise Premium
+#  PocketWise Premium
 ### AI-Powered Personal Finance Platform
 Get assistance with finances by using Artificial Intelligence smartly.
 Through an attractive premium dashboard developed on modern web technologies and powered by Al one can keep track of his or hers income, expenses, bills, savings goals and budgets easily.
@@ -12,8 +12,8 @@ Through an attractive premium dashboard developed on modern web technologies and
 
 </div>
 
-# ✨ Features
-## 🤖 AI Financial Assistant
+#  Features
+##  AI Financial Assistant
 - financial assistant powered by Al
 - analysis of spending patterns at a higher level
 - recommendations about the Budget
@@ -25,7 +25,7 @@ Through an attractive premium dashboard developed on modern web technologies and
 - RTL support
 - Responses according to the situation/ context
 ---
-## 💳 Managing Transactions & Budget
+##  Managing Transactions & Budget
 - Entering transactions
 - Modifying the already-made transaction
 - Removing a transaction
@@ -35,7 +35,7 @@ Through an attractive premium dashboard developed on modern web technologies and
 - Verifying a transaction
 - Searching & Filtering
 ---
-## 📊 Smart Dashboard
+## Smart Dashboard
 - Overview of the state of finances
 - Breakdown of the Income
 - Breakdown of the Expenses
@@ -46,19 +46,19 @@ Through an attractive premium dashboard developed on modern web technologies and
 - Taking the next steps
 - Easily adaptable Layout/Interface/ Dashboard
 ---
-## 🎯 Goals
+##  Goals
 - Set Your Savings Goals
 - Checking your goal Progress
 - Visual representations or indicators of a goal's progress
 - Managing your Goals
 ---
-## 🧾 Bills
+##  Bills
 - Manage your Bills
 - Track due dates
 - Track upcoming bills
 - Keeping track of Bill Payments/Receivables
 ---
-## 🎨 Premium User Interface
+##  Premium User Interface
 - The Design Based Upon Glassmorphism
 - Updated Look Of The Dashboard
 - Eye catching Cards
@@ -70,7 +70,7 @@ Through an attractive premium dashboard developed on modern web technologies and
 - The Toast Style Messaging
 - A Mobile-friendly Interface
 ---
-## 🔐 Authentication
+##  Authentication
 - Use of Firebase Authentication
 - Email & Password Sign-In
 - Sign-in with Google
@@ -98,7 +98,7 @@ Through an attractive premium dashboard developed on modern web technologies and
 - chart.js
 - firebase SDK
 ---
-# 📁 Project Organization
+#  Project Organization
 ```
 PocketWise
 │
@@ -121,7 +121,7 @@ PocketWise
 └── README.md
 ```
 ---
-# 📲 Deploying
+#  Deploying
 To obtain a local copy please perform git clone
 ```bash
 git clone https://github.com/megazone272/PocketWise.git
@@ -148,7 +148,7 @@ To open the browser you can follow these steps:
 http://localhost:3007
 
 ---
-🤖 PocketWise AI
+ PocketWise AI
 PocketWise AI can help its users in several ways:
 Analyzing their financial patterns and behaviors
 Telling a narrative of their financial activity
@@ -159,20 +159,20 @@ Offering help about financial stuff they may not have known anything about yet
 Giving them financial advice which is customized to them
 
 ----
-🔥 Firebase Services
+ Firebase Services
 Among the features from Firebase that Powered Money uses, there are:
 Firebase Authentication
 Cloud Firestore
 Firestore Security Rules
 
 ----
-🌍 Supported Languages
+ Supported Languages
 You can use Powered Money in:
 🇺🇸 English
 🇪🇬 العربية
 
 -----
-📱 Responsive Design
+ Responsive Design
 This is powered to work best on different devices including:
 Desktop
 Big Computer
@@ -180,7 +180,7 @@ Tablet
 Mobile phone
 
 ----
-🔒 Security
+ Security
 Below is a list of the security techniques used by Powered Money:
 Firebase Authentication
 Firestore Security Rules
@@ -189,7 +189,7 @@ Input Validation
 Private User Data
 
 ----
-📈 Future Plans
+ Future Plans
 The following are some of the upcoming features of Powered Money (they are all ideas, nothing is guaranteed yet!):
 "" AI-based Receipt Scanner (which will support OCR)
 ""Assistant (with voice)
@@ -206,11 +206,11 @@ The following are some of the upcoming features of Powered Money (they are all i
 ""Ability to handle different currencies
 
 ---
-## 📸 Screenshots
+## Screenshots
 
 <div align="center">
 
-### 🌙 Dark & ☀️ Light Mode
+### Dark &  Light Mode
 <table>
   <tr>
     <td width="50%" align="center"><b>Dark Mode</b></td>
@@ -222,7 +222,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### 💳 Transactions & Add Expense
+###  Transactions & Add Expense
 <table>
   <tr>
     <td width="50%" align="center"><b>Transactions List</b></td>
@@ -234,7 +234,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### 🎯 Budgets & 📈 Analytics
+###  Budgets &  Analytics
 <table>
   <tr>
     <td width="50%" align="center"><b>Budget Tracker</b></td>
@@ -246,7 +246,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### 🤖 AI Assistant & 📅 Bills Calendar
+###  AI Assistant &  Bills Calendar
 <table>
   <tr>
     <td width="50%" align="center"><b>AI Assistant</b></td>
@@ -258,7 +258,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### ⚙️ Settings & 📱 Mobile View
+###  Settings &  Mobile View
 <table>
   <tr>
     <td width="50%" align="center"><b>Settings</b></td>
@@ -270,7 +270,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### 🔐 Login Screen
+###  Login Screen
 <p align="center">
   <img src="screenshots/01_auth_page.png" width="80%" alt="Login Screen" />
 </p>
@@ -278,20 +278,20 @@ The following are some of the upcoming features of Powered Money (they are all i
 </div>
 
 ---
-🤝 Contributing
+ Contributing
 We really appreciate you helping and are always happy to receive contributions from you. Please follow the steps described in the next paragraph:
 Fork your personal copy of the open source project repository, pick a unique name for a new branch, and finally send to the main repository your changes as a Pull Request.
 
 ----
-👨💻 Author
-**Nour Ahmed**
+ Author
+Nour Ahmed
 Check-out his GitHub at the following link:
 https://github.com/megazone272
 
 -----
-⭐ Support
+ Support
 The author is very grateful to everyone who likes the repo and has been giving it stars. That kind of support helps in getting more users and in the creation of new features.
 
 ----
-### 💜 PocketWise
-### Make more money with the right decisions! This app is a product made with ❤ by combining JavaScript, Firebase and AI.
+###  PocketWise
+### Make more money with the right decisions! This app is a product made with ❤ by combining JavaScript, Firebase
