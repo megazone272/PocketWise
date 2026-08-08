@@ -1,10 +1,11 @@
-# 💰 PocketWise
+# PocketWise
+
 <div align="center">
 
-# 💜 PocketWise Premium
+# PocketWise Premium
 ### AI-Powered Personal Finance Platform
 Get assistance with finances by using Artificial Intelligence smartly.
-Through an attractive premium dashboard developed on modern web technologies and powered by Al one can keep track of his or hers income, expenses, bills, savings goals and budgets easily.
+Through an attractive premium dashboard developed on modern web technologies and powered by AI one can keep track of his or hers income, expenses, bills, savings goals and budgets easily.
 
 <br/>
 
@@ -12,20 +13,23 @@ Through an attractive premium dashboard developed on modern web technologies and
 
 </div>
 
-# ✨ Features
-## 🤖 AI Financial Assistant
-- financial assistant powered by Al
-- analysis of spending patterns at a higher level
-- recommendations about the Budget
+# Features
+
+## AI Financial Assistant
+- Financial assistant powered by AI
+- Analysis of spending patterns at a higher level
+- Recommendations about the Budget
 - Saving ideas
 - Financial insights
 - Overview of monthly spends
 - Detailed analysis of the transactions
-- Dual (Arabic & English)language support
+- Dual (Arabic & English) language support
 - RTL support
-- Responses according to the situation/ context
+- Responses according to the situation/context
+
 ---
-## 💳 Managing Transactions & Budget
+
+## Managing Transactions & Budget
 - Entering transactions
 - Modifying the already-made transaction
 - Removing a transaction
@@ -34,8 +38,10 @@ Through an attractive premium dashboard developed on modern web technologies and
 - Keeping track of your Expenses
 - Verifying a transaction
 - Searching & Filtering
+
 ---
-## 📊 Smart Dashboard
+
+## Smart Dashboard
 - Overview of the state of finances
 - Breakdown of the Income
 - Breakdown of the Expenses
@@ -44,173 +50,212 @@ Through an attractive premium dashboard developed on modern web technologies and
 - Spending data exploration
 - Overview of the Cash Flow
 - Taking the next steps
-- Easily adaptable Layout/Interface/ Dashboard
+- Easily adaptable Layout/Interface/Dashboard
+
 ---
-## 🎯 Goals
+
+## Goals
 - Set Your Savings Goals
 - Checking your goal Progress
 - Visual representations or indicators of a goal's progress
 - Managing your Goals
+
 ---
-## 🧾 Bills
+
+## Bills
 - Manage your Bills
 - Track due dates
 - Track upcoming bills
 - Keeping track of Bill Payments/Receivables
+
 ---
-## 🎨 Premium User Interface
+
+## Premium User Interface
 - The Design Based Upon Glassmorphism
 - Updated Look Of The Dashboard
 - Eye catching Cards
 - The Design that is Flexible for All the Screen Sizes
 - The Dark Theme
-- The Light
+- The Light Theme
 - Keyboard shortcut Palette
 - The Smoothly Transitioning Interface
 - The Toast Style Messaging
 - A Mobile-friendly Interface
+
 ---
-## 🔐 Authentication
+
+## Authentication
 - Use of Firebase Authentication
 - Email & Password Sign-In
 - Sign-in with Google
 - Reset of the Password
 - The feature where one stays logged in even with closing the browser
 - Securing the User Sessions
+
 ---
-## ☁ Backend
+
+## Backend
 - Node.js
 - Using Firebase Firestore
 - REST API Design
 - The Groq AI Implementation
+
 ---
-# 🛠 Development Tools
+
+# Development Tools
+
 ### Front-end Development
 - HTML5
 - CSS 3.0
-- The use of JavaScript(ECMASCRIPT 6)
+- JavaScript (ES6)
+
 ### Backend Development
 - Node.js
-- firebase
+- Firebase
 - Cloud Firestore
 - Groq AI API
-### The libraries
+
+### Libraries
 - chart.js
 - firebase SDK
+
 ---
-# 📁 Project Organization
+
+# Project Organization
+
 ```
 PocketWise
-│
-├── index.html
-├── style.css
-├── script.js
-├── server.js
-├── firebase.js
-├── settings.js
-├── transactions.js
-├── translations.js
-├── chart.js
-├── sw.js
-├── manifest.webmanifest
-├── firestore.rules
-├── package.json
-├── package-lock.json
-├── .env.example
-├── test/
-└── README.md
+|
+|-- index.html
+|-- style.css
+|-- script.js
+|-- server.js
+|-- firebase.js
+|-- settings.js
+|-- transactions.js
+|-- translations.js
+|-- chart.js
+|-- sw.js
+|-- manifest.webmanifest
+|-- firestore.rules
+|-- package.json
+|-- package-lock.json
+|-- .env.example
+|-- test/
+|-- README.md
 ```
+
 ---
-# 📲 Deploying
-To obtain a local copy please perform git clone
+
+# Deploying
+
+To obtain a local copy please perform git clone:
 ```bash
 git clone https://github.com/megazone272/PocketWise.git
 ```
-Switch to PocketWise
+
+Switch to PocketWise:
 ```bash
 cd PocketWise
 ```
-Install the dependencies
+
+Install the dependencies:
 ```bash
 npm install
 ```
-Creating your environment file
-Copy the example environment file and use it as a starting point for your own environmental setup:
+
+Creating your environment file. Copy the example environment file and use it as a starting point for your own environmental setup:
 ```bash
 cp .env.example .env
 ```
+
 Insert your Firebase and Groq API keys in the appropriate fields.
+
 Start your application using the following command:
 ```bash
 npm start
 ```
-To open the browser you can follow these steps:
+
+Open the browser at:
+```
 http://localhost:3007
+```
 
 ---
-🤖 PocketWise AI
+
+# PocketWise AI
+
 PocketWise AI can help its users in several ways:
-Analyzing their financial patterns and behaviors
-Telling a narrative of their financial activity
-Helping them to save
-Planning their budget
-Identifying trends in their financial activities
-Offering help about financial stuff they may not have known anything about yet
-Giving them financial advice which is customized to them
-
-----
-🔥 Firebase Services
-Among the features from Firebase that Powered Money uses, there are:
-Firebase Authentication
-Cloud Firestore
-Firestore Security Rules
-
-----
-🌍 Supported Languages
-You can use Powered Money in:
-🇺🇸 English
-🇪🇬 العربية
-
------
-📱 Responsive Design
-This is powered to work best on different devices including:
-Desktop
-Big Computer
-Tablet
-Mobile phone
-
-----
-🔒 Security
-Below is a list of the security techniques used by Powered Money:
-Firebase Authentication
-Firestore Security Rules
-Encrypted REST API
-Input Validation
-Private User Data
-
-----
-📈 Future Plans
-The following are some of the upcoming features of Powered Money (they are all ideas, nothing is guaranteed yet!):
-"" AI-based Receipt Scanner (which will support OCR)
-""Assistant (with voice)
-""Financial wellness measure
-""AI Coach
-""Smart reminders
-""AI-based financial planning
-""Monthly reports
-""PDF Export
-""Excel Export
-""Enhanced Text search
-""Offline support (PWA)
-""Detect recurring monthly bills
-""Ability to handle different currencies
+- Analyzing their financial patterns and behaviors
+- Telling a narrative of their financial activity
+- Helping them to save
+- Planning their budget
+- Identifying trends in their financial activities
+- Offering help about financial stuff they may not have known anything about yet
+- Giving them financial advice which is customized to them
 
 ---
-## 📸 Screenshots
+
+# Firebase Services
+
+Among the features from Firebase that PocketWise uses, there are:
+- Firebase Authentication
+- Cloud Firestore
+- Firestore Security Rules
+
+---
+
+# Supported Languages
+
+- English
+- Arabic
+
+---
+
+# Responsive Design
+
+This app works best on different devices including:
+- Desktop
+- Tablet
+- Mobile phone
+
+---
+
+# Security
+
+Security techniques used by PocketWise:
+- Firebase Authentication
+- Firestore Security Rules
+- Encrypted REST API
+- Input Validation
+- Private User Data
+
+---
+
+# Future Plans
+
+The following are some of the upcoming features (they are all ideas, nothing is guaranteed yet):
+- AI-based Receipt Scanner (which will support OCR)
+- Voice Assistant
+- Financial wellness measure
+- AI Coach
+- Smart reminders
+- AI-based financial planning
+- Monthly reports
+- PDF Export
+- Excel Export
+- Enhanced Text search
+- Offline support (PWA)
+- Detect recurring monthly bills
+- Ability to handle different currencies
+
+---
+
+# Screenshots
 
 <div align="center">
 
-### 🌙 Dark & ☀️ Light Mode
+### Dark and Light Mode
 <table>
   <tr>
     <td width="50%" align="center"><b>Dark Mode</b></td>
@@ -222,7 +267,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### 💳 Transactions & Add Expense
+### Transactions and Add Expense
 <table>
   <tr>
     <td width="50%" align="center"><b>Transactions List</b></td>
@@ -234,7 +279,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### 🎯 Budgets & 📈 Analytics
+### Budgets and Analytics
 <table>
   <tr>
     <td width="50%" align="center"><b>Budget Tracker</b></td>
@@ -246,7 +291,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### 🤖 AI Assistant & 📅 Bills Calendar
+### AI Assistant and Bills Calendar
 <table>
   <tr>
     <td width="50%" align="center"><b>AI Assistant</b></td>
@@ -258,7 +303,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### ⚙️ Settings & 📱 Mobile View
+### Settings and Mobile View
 <table>
   <tr>
     <td width="50%" align="center"><b>Settings</b></td>
@@ -270,7 +315,7 @@ The following are some of the upcoming features of Powered Money (they are all i
   </tr>
 </table>
 
-### 🔐 Login Screen
+### Login Screen
 <p align="center">
   <img src="screenshots/01_auth_page.png" width="80%" alt="Login Screen" />
 </p>
@@ -278,20 +323,27 @@ The following are some of the upcoming features of Powered Money (they are all i
 </div>
 
 ---
-🤝 Contributing
+
+# Contributing
+
 We really appreciate you helping and are always happy to receive contributions from you. Please follow the steps described in the next paragraph:
 Fork your personal copy of the open source project repository, pick a unique name for a new branch, and finally send to the main repository your changes as a Pull Request.
 
-----
-👨💻 Author
-**Nour Ahmed**
-Check-out his GitHub at the following link:
-https://github.com/megazone272
+---
 
------
-⭐ Support
+# Author
+
+**Nour Ahmed**
+
+GitHub: https://github.com/megazone272
+
+---
+
+# Support
+
 The author is very grateful to everyone who likes the repo and has been giving it stars. That kind of support helps in getting more users and in the creation of new features.
 
-----
-### 💜 PocketWise
-### Make more money with the right decisions! This app is a product made with ❤ by combining JavaScript, Firebase and AI.
+---
+
+# PocketWise
+Make more money with the right decisions! This app is a product made with love by combining JavaScript, Firebase and AI.
