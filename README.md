@@ -147,7 +147,7 @@ PocketWise
 
 ---
 
-# Deploying
+# How To Reproduce
 
 To obtain a local copy please perform git clone:
 ```bash
@@ -232,23 +232,21 @@ Security techniques used by PocketWise:
 
 ---
 
-# Future Plans
-
-The following are some of the upcoming features (they are all ideas, nothing is guaranteed yet):
-- AI-based Receipt Scanner (which will support OCR)
-- Voice Assistant
-- Financial wellness measure
-- AI Coach
-- Smart reminders
-- AI-based financial planning
-- Monthly reports
-- PDF Export
-- Excel Export
-- Enhanced Text search
-- Offline support (PWA)
-- Detect recurring monthly bills
-- Ability to handle different currencies
-
+# Future plans
+We have compiled a list of the features that we are likely to bring to you (they are just ideas, none are guaranteed):
+OCR supported Ai based receipt scanner
+Voice assistant
+Financial health indicator
+AI coach
+Reminders with intelligence
+AI based financial guidance
+Monthly reports
+PDF export feature
+Excel spreadsheet export feature
+Improved text search
+Offline support 
+Detection of recurring monthly bills
+Feature for handling different currencies
 ---
 
 # Screenshots
@@ -324,24 +322,11 @@ The following are some of the upcoming features (they are all ideas, nothing is 
 
 ---
 
-# Contributing
-
-We really appreciate you helping and are always happy to receive contributions from you. Please follow the steps described in the next paragraph:
-Fork your personal copy of the open source project repository, pick a unique name for a new branch, and finally send to the main repository your changes as a Pull Request.
-
----
-
 # Author
 
 **Nour Ahmed**
 
 GitHub: https://github.com/megazone272
-
----
-
-# Support
-
-The author is very grateful to everyone who likes the repo and has been giving it stars. That kind of support helps in getting more users and in the creation of new features.
 
 ---
 
